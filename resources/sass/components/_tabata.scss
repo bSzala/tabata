@@ -4,7 +4,7 @@
     justify-content: center;
     height: 95%;
     flex-wrap: wrap;
-    background-color: $color-white;
+    background-color: transparent;
     font-size: 6rem;
     padding: 2rem;
 
@@ -24,6 +24,7 @@
         height: 70%;
         @include shadow-small;
         justify-content: center;
+        background-color: $color-white;
         align-items: center;
     }
 

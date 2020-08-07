@@ -4,13 +4,14 @@
     justify-content: center;
     align-items: stretch;
     flex-wrap: wrap;
-
+    background-color: rgba($color-grey-light, 1);
 
 }
 
 .sidebar{
     flex: 0 0 400px;
     background-color: rgba($color-grey-light,.2);
+    border-left: 1px solid $color-grey-light;
     //background-image: linear-gradient(to right , rgba($color-white, 1) 70%, rgba($color-grey-dark,.6));
 }
 

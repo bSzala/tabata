@@ -89,7 +89,7 @@ body {
   justify-content: center;
   height: 95%;
   flex-wrap: wrap;
-  background-color: #fff;
+  background-color: transparent;
   font-size: 6rem;
   padding: 2rem;
 }
@@ -105,6 +105,7 @@ body {
   height: 70%;
   box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.3);
   justify-content: center;
+  background-color: #fff;
   align-items: center;
 }
 .tabata__additional {
@@ -327,11 +328,13 @@ body {
   justify-content: center;
   align-items: stretch;
   flex-wrap: wrap;
+  background-color: #dadddd;
 }
 
 .sidebar {
   flex: 0 0 400px;
   background-color: rgba(218, 221, 221, 0.2);
+  border-left: 1px solid #dadddd;
 }
 
 .settings {
