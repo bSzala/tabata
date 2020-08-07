@@ -1,0 +1,44 @@
+.tabata{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: 100%;
+    flex-wrap: wrap;
+    font-size: 8rem;
+
+    &__timer{
+        flex: 0 0 100%;
+        font-size: 10rem;
+        display: flex;
+        background-color: orangered;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__heading{
+        flex: 0 0 100%;
+        text-align: center;
+        font-size: 5rem;
+        font-weight: 300;
+    }
+
+    &__cycles{
+        flex: 0 0 50%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+
+        border-right: .1rem dashed $color-primary-light;
+        border-bottom: .1rem dashed $color-primary-light;
+    }
+
+    &__tabatas{
+        flex: 0 0 50%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        border-bottom: .1rem dashed $color-primary-light;
+    }
+}

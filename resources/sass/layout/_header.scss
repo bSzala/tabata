@@ -1,0 +1,16 @@
+.header{
+    flex: 0 0 25rem;
+    display: flex;
+    padding: 3rem;
+    background-color: $color-primary;
+    justify-content: center;
+    align-items: center;
+
+    &__content{
+        display: flex;
+        font-size: 2rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 1.5rem;
+    }
+}

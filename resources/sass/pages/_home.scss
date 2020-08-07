@@ -1,0 +1,16 @@
+.content-section{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+
+    &__main{
+        flex: 1;
+        background-color:$color-white;
+    }
+
+    &__sidebar{
+        flex: 0 0 400px;
+        background-color:$color-grey;
+    }
+}
