@@ -1,0 +1,25 @@
+.btn{
+    padding: 2rem;
+    display: inline-block;
+
+    &,
+    &:link,
+    &:visited{
+        background-color: $color-white;
+        border:1px solid $color-grey-light;
+        cursor: pointer;
+    }
+
+    &:hover{
+        background-image: linear-gradient(to right bottom, $color-white 50%, rgba($color-grey,.5));
+    }
+
+    &--block{
+        flex: 0 0 45%;
+    }
+
+    &--wide{
+        flex: 0 0 95%;
+        margin: 1rem auto;
+    }
+}

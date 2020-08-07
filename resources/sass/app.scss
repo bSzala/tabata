@@ -15,6 +15,10 @@
 
 // Components
 @import "components/tabata";
+@import "components/setting";
+@import "components/button";
+/* import theme style */
+@import '~vue-slider-component/lib/theme/default.scss';
 
 // Layout
 @import "layout/grid";

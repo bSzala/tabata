@@ -4,6 +4,8 @@ $color-primary-light:#4f5d75;
 $color-primary-dark:#1b1d28;
 
 $color-grey:#bfc0c0;
+$color-grey-light:#dadddd;
+$color-grey-dark: #abacac;
 
 $color-orange: #ef8354;
 $color-orange-light:#f19168;
@@ -18,3 +20,6 @@ $default-font-size: 1.6rem;
 
 // GRID
 $grid-width: 100vw;
+
+/* Set the theme color of the component */
+$themeColor: $color-primary;

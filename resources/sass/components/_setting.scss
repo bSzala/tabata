@@ -1,0 +1,19 @@
+.setting{
+    padding: 2rem 3rem;
+    background-color: $color-white;
+    margin: 1rem;
+
+    border: 1px solid $color-grey-light;
+
+    &__title{
+        font-size: 2rem;
+        color: rgba($color-black, .6);
+    }
+
+    &__slider{
+        padding: 2rem;
+        display: block;
+        margin: auto;
+        width: 80%!important;
+    }
+}
