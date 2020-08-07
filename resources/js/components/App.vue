@@ -45,7 +45,6 @@
                     <span class="setting__title">Cycles</span>
                     <vue-slider ref="slider" v-model="value1"  v-bind="options1" class="setting__slider"></vue-slider>
                 </div>
-
                 <div class="setting">
                     <span class="setting__title">Tabatas</span>
                     <vue-slider  ref="slider" v-model="value2"  v-bind="options2"  class="setting__slider"></vue-slider>
