@@ -44,14 +44,15 @@
                     <div class="settings">
                         <div class="setting">
                             <span class="setting__title">Prepare</span>
-
+                            <timer-field></timer-field>
                         </div>
                         <div class="setting">
                             <span class="setting__title">Work</span>
-
+                            <timer-field></timer-field>
                         </div>
                         <div class="setting">
                             <span class="setting__title">Rest</span>
+                            <timer-field></timer-field>
 
                         </div>
                         <div class="setting">
@@ -65,8 +66,6 @@
                         </div>
 
                         <div class="settings__buttons">
-                            <button class="btn btn--block">Minus</button>
-                            <button class="btn btn--block">Plus</button>
                             <button class="btn btn--wide">Start</button>
                         </div>
 
