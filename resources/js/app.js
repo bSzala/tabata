@@ -20,11 +20,9 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('timer-field', require('./components/TimerField').default);
+Vue.component('app', require('./components/App').default);
 
-import VueSlider from 'vue-slider-component';
 
-Vue.component('VueSlider', VueSlider);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -33,50 +31,5 @@ Vue.component('VueSlider', VueSlider);
 
 const app = new Vue({
     el: '#app',
-    data(){
-        return {
-            value1: 8,
-            value2: 1,
-            options1: {
-                dotSize: 34,
-                duration: 0.7,
-                min:1,
-                max:50,
-                tooltip: 'always',
-                tooltipPlacement: 'right',
-                tooltipFormatter: void 0,
-                useKeyboard: false,
-                keydownHook: null,
-                dragOnClick: false,
-                enableCross: true,
-                fixed: false,
-                tooltipStyle: void 0,
-                stepStyle: void 0,
-                stepActiveStyle: void 0,
-                labelStyle: void 0,
-                labelActiveStyle: void 0,
-                clickable: true,
-            },
-            options2: {
-                dotSize: 34,
-                duration: 0.7,
-                min:1,
-                max:50,
-                tooltip: 'always',
-                tooltipPlacement: 'left',
-                tooltipFormatter: void 0,
-                useKeyboard: false,
-                keydownHook: null,
-                dragOnClick: false,
-                enableCross: true,
-                fixed: false,
-                tooltipStyle: void 0,
-                stepStyle: void 0,
-                stepActiveStyle: void 0,
-                labelStyle: void 0,
-                labelActiveStyle: void 0,
-                clickable: true,
-            }
-        }
-    }
+
 });

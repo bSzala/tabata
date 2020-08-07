@@ -1899,6 +1899,139 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/App.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/App.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TimerField__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TimerField */ "./resources/js/components/TimerField.vue");
+/* harmony import */ var vue_slider_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-slider-component */ "./node_modules/vue-slider-component/dist/vue-slider-component.umd.min.js");
+/* harmony import */ var vue_slider_component__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_slider_component__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    'timer-field': _TimerField__WEBPACK_IMPORTED_MODULE_0__["default"],
+    'vue-slider': vue_slider_component__WEBPACK_IMPORTED_MODULE_1___default.a
+  },
+  data: function data() {
+    return {
+      value1: 8,
+      value2: 1,
+      options1: {
+        dotSize: 34,
+        duration: 0.7,
+        min: 1,
+        max: 50,
+        tooltip: 'always',
+        tooltipPlacement: 'right',
+        tooltipFormatter: void 0,
+        useKeyboard: false,
+        keydownHook: null,
+        dragOnClick: false,
+        enableCross: true,
+        fixed: false,
+        tooltipStyle: void 0,
+        stepStyle: void 0,
+        stepActiveStyle: void 0,
+        labelStyle: void 0,
+        labelActiveStyle: void 0,
+        clickable: true
+      },
+      options2: {
+        dotSize: 34,
+        duration: 0.7,
+        min: 1,
+        max: 50,
+        tooltip: 'always',
+        tooltipPlacement: 'left',
+        tooltipFormatter: void 0,
+        useKeyboard: false,
+        keydownHook: null,
+        dragOnClick: false,
+        enableCross: true,
+        fixed: false,
+        tooltipStyle: void 0,
+        stepStyle: void 0,
+        stepActiveStyle: void 0,
+        labelStyle: void 0,
+        labelActiveStyle: void 0,
+        clickable: true
+      }
+    };
+  },
+  mounted: function mounted() {
+    console.log('Component mounted.');
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TimerField.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TimerField.vue?vue&type=script&lang=js& ***!
@@ -37520,6 +37653,182 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/App.vue?vue&type=template&id=332fccf4&":
+/*!******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/App.vue?vue&type=template&id=332fccf4& ***!
+  \******************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("main", { staticClass: "content-section" }, [
+      _c("nav", { staticClass: "nav" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "tabata" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "tabata__additional" }, [
+          _c("div", { staticClass: "tabata__cycles" }, [
+            _c("h3", { staticClass: "tabata__heading" }, [_vm._v("Cycles")]),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "tabata__number",
+              domProps: { textContent: _vm._s(_vm.value1) }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "tabata__tabatas" }, [
+            _c("h3", { staticClass: "tabata__heading" }, [_vm._v("Tabatas")]),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "tabata__number",
+              domProps: { textContent: _vm._s(_vm.value2) }
+            })
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "sidebar" }, [
+      _c("div", { staticClass: "settings" }, [
+        _c(
+          "div",
+          { staticClass: "setting" },
+          [
+            _c("span", { staticClass: "setting__title" }, [_vm._v("Prepare")]),
+            _vm._v(" "),
+            _c("timer-field")
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "setting" },
+          [
+            _c("span", { staticClass: "setting__title" }, [_vm._v("Work")]),
+            _vm._v(" "),
+            _c("timer-field")
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "setting" },
+          [
+            _c("span", { staticClass: "setting__title" }, [_vm._v("Rest")]),
+            _vm._v(" "),
+            _c("timer-field")
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "setting" },
+          [
+            _c("span", { staticClass: "setting__title" }, [_vm._v("Cycles")]),
+            _vm._v(" "),
+            _c(
+              "vue-slider",
+              _vm._b(
+                {
+                  ref: "slider",
+                  staticClass: "setting__slider",
+                  model: {
+                    value: _vm.value1,
+                    callback: function($$v) {
+                      _vm.value1 = $$v
+                    },
+                    expression: "value1"
+                  }
+                },
+                "vue-slider",
+                _vm.options1,
+                false
+              )
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "setting" },
+          [
+            _c("span", { staticClass: "setting__title" }, [_vm._v("Tabatas")]),
+            _vm._v(" "),
+            _c(
+              "vue-slider",
+              _vm._b(
+                {
+                  ref: "slider",
+                  staticClass: "setting__slider",
+                  model: {
+                    value: _vm.value2,
+                    callback: function($$v) {
+                      _vm.value2 = $$v
+                    },
+                    expression: "value2"
+                  }
+                },
+                "vue-slider",
+                _vm.options2,
+                false
+              )
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm._m(2)
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("header", { staticClass: "header" }, [
+      _c("div", { staticClass: "header__content" }, [_c("p", [_vm._v("T2.0")])])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "tabata__timer" }, [
+      _c("span", [_vm._v("04:00")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "settings__buttons" }, [
+      _c("button", { staticClass: "btn btn--wide" }, [_vm._v("Start")])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TimerField.vue?vue&type=template&id=484cb6e0&":
 /*!*************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TimerField.vue?vue&type=template&id=484cb6e0& ***!
@@ -49767,13 +50076,9 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_slider_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-slider-component */ "./node_modules/vue-slider-component/dist/vue-slider-component.umd.min.js");
-/* harmony import */ var vue_slider_component__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_slider_component__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -49793,9 +50098,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-Vue.component('timer-field', __webpack_require__(/*! ./components/TimerField */ "./resources/js/components/TimerField.vue")["default"]);
-
-Vue.component('VueSlider', vue_slider_component__WEBPACK_IMPORTED_MODULE_0___default.a);
+Vue.component('app', __webpack_require__(/*! ./components/App */ "./resources/js/components/App.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -49803,53 +50106,7 @@ Vue.component('VueSlider', vue_slider_component__WEBPACK_IMPORTED_MODULE_0___def
  */
 
 var app = new Vue({
-  el: '#app',
-  data: function data() {
-    return {
-      value1: 8,
-      value2: 1,
-      options1: {
-        dotSize: 34,
-        duration: 0.7,
-        min: 1,
-        max: 50,
-        tooltip: 'always',
-        tooltipPlacement: 'right',
-        tooltipFormatter: void 0,
-        useKeyboard: false,
-        keydownHook: null,
-        dragOnClick: false,
-        enableCross: true,
-        fixed: false,
-        tooltipStyle: void 0,
-        stepStyle: void 0,
-        stepActiveStyle: void 0,
-        labelStyle: void 0,
-        labelActiveStyle: void 0,
-        clickable: true
-      },
-      options2: {
-        dotSize: 34,
-        duration: 0.7,
-        min: 1,
-        max: 50,
-        tooltip: 'always',
-        tooltipPlacement: 'left',
-        tooltipFormatter: void 0,
-        useKeyboard: false,
-        keydownHook: null,
-        dragOnClick: false,
-        enableCross: true,
-        fixed: false,
-        tooltipStyle: void 0,
-        stepStyle: void 0,
-        stepActiveStyle: void 0,
-        labelStyle: void 0,
-        labelActiveStyle: void 0,
-        clickable: true
-      }
-    };
-  }
+  el: '#app'
 });
 
 /***/ }),
@@ -49896,6 +50153,75 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/App.vue":
+/*!*****************************************!*\
+  !*** ./resources/js/components/App.vue ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _App_vue_vue_type_template_id_332fccf4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./App.vue?vue&type=template&id=332fccf4& */ "./resources/js/components/App.vue?vue&type=template&id=332fccf4&");
+/* harmony import */ var _App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.vue?vue&type=script&lang=js& */ "./resources/js/components/App.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _App_vue_vue_type_template_id_332fccf4___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _App_vue_vue_type_template_id_332fccf4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/App.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/App.vue?vue&type=script&lang=js&":
+/*!******************************************************************!*\
+  !*** ./resources/js/components/App.vue?vue&type=script&lang=js& ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./App.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/App.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/App.vue?vue&type=template&id=332fccf4&":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/App.vue?vue&type=template&id=332fccf4& ***!
+  \************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_template_id_332fccf4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./App.vue?vue&type=template&id=332fccf4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/App.vue?vue&type=template&id=332fccf4&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_template_id_332fccf4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_template_id_332fccf4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

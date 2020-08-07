@@ -1,13 +1,15 @@
 .timer-field{
+    display: flex;
 
     &__input{
-        padding: 2rem;
+        flex:0 0 5rem;
+        padding: .5rem 1rem;
         border: none;
-        cursor: none;
         font-size: 2rem;
         font-family: inherit;
         color: inherit;
         cursor: inherit;
+
         &:focus{
             outline: none;
         }
@@ -16,7 +18,9 @@
     &__btn{
         display: inline-block;
         padding: 1rem;
-
+        margin: 0 .2rem;
+        flex: 1;
+        font-size: 1.6rem;
         &,
         &:link,
         &:visited{
