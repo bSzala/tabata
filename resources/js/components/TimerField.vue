@@ -24,6 +24,7 @@
 
                this.styleTime();
             },
+
             add(){
                this.time++;
                this.styleTime();
