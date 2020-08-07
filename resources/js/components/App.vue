@@ -7,6 +7,7 @@
             </nav>
             <div class="tabata">
                 <div class="tabata__timer">
+                    <h3 class="tabata__title" v-text="timerTitle"></h3>
                     <span>{{prettyTimer}}</span>
                 </div>
                 <div class="tabata__additional">
@@ -33,6 +34,7 @@
                 @changeTabatas="updateTabatas"
                 @changeTime="updateTime"
                 @workout="workoutAction"
+                @pause="pauseWorkout"
             ></settings>
         </div>
     </div>
@@ -56,7 +58,11 @@
                 restTimeSecond: 10,
                 timer: 0,
                 prettyTimer:0,
-                workoutInterval:false
+                workoutInterval:false,
+                doneCycles: 0,
+                doneTabatas: 0,
+                timerTitle: ''
+
             }
         },
         mounted() {
@@ -98,6 +104,14 @@
                 }
 
                 this.updateTimer();
+            },
+            pauseWorkout(){
+                if(this.workoutInterval){
+                    clearInterval(this.workoutInterval);
+                    this.workoutInterval= false;
+                }else{
+                    this.workoutAction(true);
+                }
             },
             workoutAction(active){
                 if(active){

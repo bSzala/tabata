@@ -16,10 +16,18 @@
         flex: 0 0 30%;
     }
 
+    &__title{
+        font-size: 4rem;
+        font-weight: 700;
+    }
+
     &__timer{
         flex: 0 0 100%;
         font-size: 16rem;
         display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         //border: .1rem dashed $color-primary-light;
         //border-top: none;
         //border-right: none;

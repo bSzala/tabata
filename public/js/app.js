@@ -1950,6 +1950,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1966,7 +1968,10 @@ __webpack_require__.r(__webpack_exports__);
       restTimeSecond: 10,
       timer: 0,
       prettyTimer: 0,
-      workoutInterval: false
+      workoutInterval: false,
+      doneCycles: 0,
+      doneTabatas: 0,
+      timerTitle: ''
     };
   },
   mounted: function mounted() {
@@ -2012,6 +2017,14 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.updateTimer();
+    },
+    pauseWorkout: function pauseWorkout() {
+      if (this.workoutInterval) {
+        clearInterval(this.workoutInterval);
+        this.workoutInterval = false;
+      } else {
+        this.workoutAction(true);
+      }
     },
     workoutAction: function workoutAction(active) {
       var _this = this;
@@ -2108,6 +2121,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2127,6 +2141,8 @@ __webpack_require__.r(__webpack_exports__);
       value1: this.cycles,
       value2: this.tabatas,
       working: false,
+      pauseButtonStatus: false,
+      resumeStatus: false,
       options1: {
         dotSize: 34,
         duration: 0.7,
@@ -2184,7 +2200,24 @@ __webpack_require__.r(__webpack_exports__);
     },
     toggleWorkout: function toggleWorkout() {
       this.working = !this.working;
+
+      if (this.working) {
+        this.addPauseBtn();
+      } else {
+        this.removePauseBtn();
+      }
+
       this.$emit('workout', this.working);
+    },
+    pauseWorkout: function pauseWorkout() {
+      this.$emit('pause');
+      this.resumeStatus = !this.resumeStatus;
+    },
+    addPauseBtn: function addPauseBtn() {
+      this.pauseButtonStatus = true;
+    },
+    removePauseBtn: function removePauseBtn() {
+      this.pauseButtonStatus = false;
     }
   }
 });
@@ -37875,6 +37908,11 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "tabata" }, [
           _c("div", { staticClass: "tabata__timer" }, [
+            _c("h3", {
+              staticClass: "tabata__title",
+              domProps: { textContent: _vm._s(_vm.timerTitle) }
+            }),
+            _vm._v(" "),
             _c("span", [_vm._v(_vm._s(_vm.prettyTimer))])
           ]),
           _vm._v(" "),
@@ -37916,7 +37954,8 @@ var render = function() {
               changedCycle: _vm.updateCycle,
               changeTabatas: _vm.updateTabatas,
               changeTime: _vm.updateTime,
-              workout: _vm.workoutAction
+              workout: _vm.workoutAction,
+              pause: _vm.pauseWorkout
             }
           })
         ],
@@ -38083,6 +38122,16 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", { staticClass: "settings__buttons" }, [
+      _vm.pauseButtonStatus
+        ? _c("button", {
+            staticClass: "btn btn--wide",
+            domProps: {
+              textContent: _vm._s(!_vm.resumeStatus ? "Pause" : "Resume")
+            },
+            on: { click: _vm.pauseWorkout }
+          })
+        : _vm._e(),
+      _vm._v(" "),
       _c(
         "button",
         {

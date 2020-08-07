@@ -23,6 +23,7 @@
         </div>
 
         <div class="settings__buttons">
+            <button class="btn btn--wide" v-if="pauseButtonStatus" @click="pauseWorkout"  v-text="!resumeStatus? 'Pause':'Resume'"></button>
             <button class="btn btn--wide" @click="toggleWorkout" v-text="!working? 'Start': 'Stop'">Start</button>
         </div>
     </div>
@@ -49,6 +50,8 @@ export default {
             value1: this.cycles,
             value2: this.tabatas,
             working: false,
+            pauseButtonStatus: false,
+            resumeStatus: false,
             options1: {
                 dotSize: 34,
                 duration: 0.7,
@@ -108,9 +111,24 @@ export default {
         },
         toggleWorkout(){
             this.working= !this.working;
+            if(this.working){
+                this.addPauseBtn();
+            }else{
+                this.removePauseBtn();
+            }
             this.$emit('workout', this.working);
 
         },
+        pauseWorkout(){
+            this.$emit('pause');
+            this.resumeStatus = !this.resumeStatus;
+        },
+        addPauseBtn(){
+            this.pauseButtonStatus = true;
+        },
+        removePauseBtn(){
+            this.pauseButtonStatus = false;
+        }
 
     }
 

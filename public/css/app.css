@@ -100,10 +100,17 @@ body {
   font-weight: 300;
   flex: 0 0 30%;
 }
+.tabata__title {
+  font-size: 4rem;
+  font-weight: 700;
+}
 .tabata__timer {
   flex: 0 0 100%;
   font-size: 16rem;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 70%;
   box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.3);
   justify-content: center;
