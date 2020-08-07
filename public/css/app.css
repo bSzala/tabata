@@ -200,7 +200,6 @@ body {
 .timer-field__btn:hover {
   border-color: #fff;
 }
-/* import theme style */
 /* component style */
 .vue-slider-disabled {
   opacity: 0.5;

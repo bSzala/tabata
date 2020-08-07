@@ -2122,22 +2122,48 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       time: 2,
-      formatedTime: '00:02'
+      formatedTime: '00:02',
+      interval: false
     };
   },
   mounted: function mounted() {
-    this.styleTime();
+    this.formatTime();
   },
   methods: {
-    substract: function substract() {
+    subtract: function subtract() {
       if (this.time > 1) this.time--;
-      this.styleTime();
+      this.formatTime();
+    },
+    subtractStart: function subtractStart() {
+      if (!this.interval) {
+        this.interval = setInterval(function () {
+          if (this.time > 1) {
+            this.time--;
+            this.formatTime();
+          } else {
+            clearInterval(this.interval);
+            this.interval = false;
+          }
+        }.bind(this), 200);
+      }
+    },
+    stopCounter: function stopCounter() {
+      clearInterval(this.interval);
+      this.interval = false;
     },
     add: function add() {
       this.time++;
-      this.styleTime();
+      this.formatTime();
     },
-    styleTime: function styleTime() {
+    addStart: function addStart() {
+      if (!this.interval) {
+        this.interval = setInterval(function () {
+          this.time++;
+          this.formatTime();
+        }.bind(this), 200);
+      }
+    },
+    formatTime: function formatTime() {
       this.formatedTime = new Date(this.time * 1000).toISOString().substr(11, 8);
     }
   }
@@ -38006,7 +38032,12 @@ var render = function() {
       "button",
       {
         staticClass: "timer-field__btn timer-field__btn--minus",
-        on: { click: _vm.substract }
+        on: {
+          click: _vm.subtract,
+          mousedown: _vm.subtractStart,
+          mouseup: _vm.stopCounter,
+          mouseleave: _vm.stopCounter
+        }
       },
       [_vm._v("-")]
     ),
@@ -38015,7 +38046,12 @@ var render = function() {
       "button",
       {
         staticClass: "timer-field__btn timer-field__btn--plus",
-        on: { click: _vm.add }
+        on: {
+          click: _vm.add,
+          mousedown: _vm.addStart,
+          mouseup: _vm.stopCounter,
+          mouseleave: _vm.stopCounter
+        }
       },
       [_vm._v("+")]
     )
