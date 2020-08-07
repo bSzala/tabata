@@ -7,7 +7,7 @@
             </nav>
             <div class="tabata">
                 <div class="tabata__timer">
-                    <span>04:00</span>
+                    <span>{{prettyTimer}}</span>
                 </div>
                 <div class="tabata__additional">
                     <div class="tabata__cycles">
@@ -23,7 +23,17 @@
             </div>
         </main>
         <div class="sidebar">
-            <settings v-bind:cycles="cyclesValue" v-bind:tabatas="tabatasValue" @changedCycle="updateCycle" @changeTabatas="updateTabatas"></settings>
+            <settings
+                v-bind:cycles="cyclesValue"
+                v-bind:tabatas="tabatasValue"
+                v-bind:prepareTime="prepareTimeSecond"
+                v-bind:workTime="workTimeSecond"
+                v-bind:restTime="restTimeSecond"
+                @changedCycle="updateCycle"
+                @changeTabatas="updateTabatas"
+                @changeTime="updateTime"
+                @workout="workoutAction"
+            ></settings>
         </div>
     </div>
 </template>
@@ -41,18 +51,78 @@
             return {
                 cyclesValue: 8,
                 tabatasValue: 1,
+                prepareTimeSecond: 10,
+                workTimeSecond: 20,
+                restTimeSecond: 10,
+                timer: 0,
+                prettyTimer:0,
+                workoutInterval:false
             }
         },
         mounted() {
-
+            this.updateTimer();
         },
         methods: {
             updateCycle(cycle){
                 this.cyclesValue = cycle;
+                this.updateTimer();
             },
             updateTabatas(tabatas){
                 this.tabatasValue = tabatas;
-            }
+                this.updateTimer();
+            },
+            updateTimer(){
+                const cycleWorkingTime = (this.cyclesValue * this.workTimeSecond);
+                const cycleBreakTime = (this.cyclesValue*this.restTimeSecond);
+                const singleTabataTime = this.prepareTimeSecond + cycleWorkingTime + cycleBreakTime;
+                this.timer = singleTabataTime* this.tabatasValue;
+                this.styleTimer();
+            },
+            styleTimer(){
+                this.prettyTimer = new Date(this.timer * 1000).toISOString().substr(11, 8);
+            },
+            updateTime(obj){
+                const seconds = obj.seconds;
+                switch (obj.type){
+                    case 'prepare':
+                        this.prepareTimeSecond = seconds;
+                        break;
+                    case 'work':
+                        this.workTimeSecond = seconds;
+                        break;
+                    case 'rest':
+                        this.restTimeSecond = seconds;
+                        break;
+                    default:
+                        throw Error('Not supported!');
+                }
+
+                this.updateTimer();
+            },
+            workoutAction(active){
+                if(active){
+                    //started
+                    if(this.workoutInterval){
+                       return;
+                    }
+
+                    this.workoutInterval = setInterval(()=> {
+                        if(this.timer >1){
+                            this.timer--;
+                            this.styleTimer();
+                        }else{
+                            clearInterval(this.workoutInterval);
+                            this.workoutInterval = false;
+                        }
+                    },1000);
+
+                }else{
+                    // stopped
+                    clearInterval(this.workoutInterval);
+                    this.workoutInterval = false;
+                }
+            },
+
         }
     }
 </script>

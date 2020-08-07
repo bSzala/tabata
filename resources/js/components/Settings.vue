@@ -2,15 +2,15 @@
     <div class="settings">
         <div class="setting">
             <span class="setting__title">Prepare</span>
-            <timer-field></timer-field>
+            <timer-field v-bind:timeSeconds="prepareTime" timeType="prepare" @changeTime="updateTime"></timer-field>
         </div>
         <div class="setting">
             <span class="setting__title">Work</span>
-            <timer-field></timer-field>
+            <timer-field  v-bind:timeSeconds="workTime" timeType="work" @changeTime="updateTime"></timer-field>
         </div>
         <div class="setting">
             <span class="setting__title">Rest</span>
-            <timer-field></timer-field>
+            <timer-field v-bind:timeSeconds="restTime" timeType="rest" @changeTime="updateTime"></timer-field>
 
         </div>
         <div class="setting">
@@ -23,7 +23,7 @@
         </div>
 
         <div class="settings__buttons">
-            <button class="btn btn--wide">Start</button>
+            <button class="btn btn--wide" @click="toggleWorkout" v-text="!working? 'Start': 'Stop'">Start</button>
         </div>
     </div>
 </template>
@@ -39,17 +39,21 @@ export default {
     },
     props:{
         cycles: Number,
-        tabatas: Number
+        tabatas: Number,
+        prepareTime: Number,
+        workTime: Number,
+        restTime: Number,
     },
     data: function(){
         return {
             value1: this.cycles,
             value2: this.tabatas,
+            working: false,
             options1: {
                 dotSize: 34,
                 duration: 0.7,
                 min:1,
-                max:50,
+                max:30,
                 tooltip: 'always',
                 tooltipPlacement: 'right',
                 tooltipFormatter: void 0,
@@ -69,7 +73,7 @@ export default {
                 dotSize: 34,
                 duration: 0.7,
                 min:1,
-                max:50,
+                max:10,
                 tooltip: 'always',
                 tooltipPlacement: 'left',
                 tooltipFormatter: void 0,
@@ -96,6 +100,18 @@ export default {
         }
     },
     mounted() {
+
+    },
+    methods:{
+        updateTime(obj){
+            this.$emit('changeTime', obj);
+        },
+        toggleWorkout(){
+            this.working= !this.working;
+            this.$emit('workout', this.working);
+
+        },
+
     }
 
 }

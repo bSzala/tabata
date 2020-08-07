@@ -8,14 +8,22 @@
 
 <script>
     export default {
+        props: {
+            timeSeconds: Number,
+            timeType: String
+        },
         data(){
             return {
-                time: 2,
+                time: this.timeSeconds,
+                type: this.timeType,
                 formatedTime: '00:02',
                 interval: false,
             }
         },
         mounted() {
+            // this.formatTime();
+        },
+        created() {
             this.formatTime();
         },
         methods: {
@@ -57,6 +65,8 @@
             },
             formatTime(){
                 this.formatedTime = new Date(this.time * 1000).toISOString().substr(11, 8);
+
+                this.$emit('changeTime', {seconds: this.time, type: this.type});
             }
         }
     }

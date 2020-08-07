@@ -1940,6 +1940,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1950,16 +1960,83 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       cyclesValue: 8,
-      tabatasValue: 1
+      tabatasValue: 1,
+      prepareTimeSecond: 10,
+      workTimeSecond: 20,
+      restTimeSecond: 10,
+      timer: 0,
+      prettyTimer: 0,
+      workoutInterval: false
     };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.updateTimer();
+  },
   methods: {
     updateCycle: function updateCycle(cycle) {
       this.cyclesValue = cycle;
+      this.updateTimer();
     },
     updateTabatas: function updateTabatas(tabatas) {
       this.tabatasValue = tabatas;
+      this.updateTimer();
+    },
+    updateTimer: function updateTimer() {
+      var cycleWorkingTime = this.cyclesValue * this.workTimeSecond;
+      var cycleBreakTime = this.cyclesValue * this.restTimeSecond;
+      var singleTabataTime = this.prepareTimeSecond + cycleWorkingTime + cycleBreakTime;
+      this.timer = singleTabataTime * this.tabatasValue;
+      this.styleTimer();
+    },
+    styleTimer: function styleTimer() {
+      this.prettyTimer = new Date(this.timer * 1000).toISOString().substr(11, 8);
+    },
+    updateTime: function updateTime(obj) {
+      var seconds = obj.seconds;
+
+      switch (obj.type) {
+        case 'prepare':
+          this.prepareTimeSecond = seconds;
+          break;
+
+        case 'work':
+          this.workTimeSecond = seconds;
+          break;
+
+        case 'rest':
+          this.restTimeSecond = seconds;
+          break;
+
+        default:
+          throw Error('Not supported!');
+      }
+
+      this.updateTimer();
+    },
+    workoutAction: function workoutAction(active) {
+      var _this = this;
+
+      if (active) {
+        //started
+        if (this.workoutInterval) {
+          return;
+        }
+
+        this.workoutInterval = setInterval(function () {
+          if (_this.timer > 1) {
+            _this.timer--;
+
+            _this.styleTimer();
+          } else {
+            clearInterval(_this.workoutInterval);
+            _this.workoutInterval = false;
+          }
+        }, 1000);
+      } else {
+        // stopped
+        clearInterval(this.workoutInterval);
+        this.workoutInterval = false;
+      }
     }
   }
 });
@@ -2040,17 +2117,21 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {
     cycles: Number,
-    tabatas: Number
+    tabatas: Number,
+    prepareTime: Number,
+    workTime: Number,
+    restTime: Number
   },
   data: function data() {
     return {
       value1: this.cycles,
       value2: this.tabatas,
+      working: false,
       options1: {
         dotSize: 34,
         duration: 0.7,
         min: 1,
-        max: 50,
+        max: 30,
         tooltip: 'always',
         tooltipPlacement: 'right',
         tooltipFormatter: void 0,
@@ -2070,7 +2151,7 @@ __webpack_require__.r(__webpack_exports__);
         dotSize: 34,
         duration: 0.7,
         min: 1,
-        max: 50,
+        max: 10,
         tooltip: 'always',
         tooltipPlacement: 'left',
         tooltipFormatter: void 0,
@@ -2096,7 +2177,16 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('changeTabatas', value);
     }
   },
-  mounted: function mounted() {}
+  mounted: function mounted() {},
+  methods: {
+    updateTime: function updateTime(obj) {
+      this.$emit('changeTime', obj);
+    },
+    toggleWorkout: function toggleWorkout() {
+      this.working = !this.working;
+      this.$emit('workout', this.working);
+    }
+  }
 });
 
 /***/ }),
@@ -2119,14 +2209,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    timeSeconds: Number,
+    timeType: String
+  },
   data: function data() {
     return {
-      time: 2,
+      time: this.timeSeconds,
+      type: this.timeType,
       formatedTime: '00:02',
       interval: false
     };
   },
-  mounted: function mounted() {
+  mounted: function mounted() {// this.formatTime();
+  },
+  created: function created() {
     this.formatTime();
   },
   methods: {
@@ -2165,6 +2262,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     formatTime: function formatTime() {
       this.formatedTime = new Date(this.time * 1000).toISOString().substr(11, 8);
+      this.$emit('changeTime', {
+        seconds: this.time,
+        type: this.type
+      });
     }
   }
 });
@@ -37773,7 +37874,9 @@ var render = function() {
         _c("nav", { staticClass: "nav" }),
         _vm._v(" "),
         _c("div", { staticClass: "tabata" }, [
-          _vm._m(0),
+          _c("div", { staticClass: "tabata__timer" }, [
+            _c("span", [_vm._v(_vm._s(_vm.prettyTimer))])
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "tabata__additional" }, [
             _c("div", { staticClass: "tabata__cycles" }, [
@@ -37802,10 +37905,18 @@ var render = function() {
         { staticClass: "sidebar" },
         [
           _c("settings", {
-            attrs: { cycles: _vm.cyclesValue, tabatas: _vm.tabatasValue },
+            attrs: {
+              cycles: _vm.cyclesValue,
+              tabatas: _vm.tabatasValue,
+              prepareTime: _vm.prepareTimeSecond,
+              workTime: _vm.workTimeSecond,
+              restTime: _vm.restTimeSecond
+            },
             on: {
               changedCycle: _vm.updateCycle,
-              changeTabatas: _vm.updateTabatas
+              changeTabatas: _vm.updateTabatas,
+              changeTime: _vm.updateTime,
+              workout: _vm.workoutAction
             }
           })
         ],
@@ -37815,16 +37926,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "tabata__timer" }, [
-      _c("span", [_vm._v("04:00")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -37886,7 +37988,10 @@ var render = function() {
       [
         _c("span", { staticClass: "setting__title" }, [_vm._v("Prepare")]),
         _vm._v(" "),
-        _c("timer-field")
+        _c("timer-field", {
+          attrs: { timeSeconds: _vm.prepareTime, timeType: "prepare" },
+          on: { changeTime: _vm.updateTime }
+        })
       ],
       1
     ),
@@ -37897,7 +38002,10 @@ var render = function() {
       [
         _c("span", { staticClass: "setting__title" }, [_vm._v("Work")]),
         _vm._v(" "),
-        _c("timer-field")
+        _c("timer-field", {
+          attrs: { timeSeconds: _vm.workTime, timeType: "work" },
+          on: { changeTime: _vm.updateTime }
+        })
       ],
       1
     ),
@@ -37908,7 +38016,10 @@ var render = function() {
       [
         _c("span", { staticClass: "setting__title" }, [_vm._v("Rest")]),
         _vm._v(" "),
-        _c("timer-field")
+        _c("timer-field", {
+          attrs: { timeSeconds: _vm.restTime, timeType: "rest" },
+          on: { changeTime: _vm.updateTime }
+        })
       ],
       1
     ),
@@ -37971,19 +38082,20 @@ var render = function() {
       1
     ),
     _vm._v(" "),
-    _vm._m(0)
+    _c("div", { staticClass: "settings__buttons" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn--wide",
+          domProps: { textContent: _vm._s(!_vm.working ? "Start" : "Stop") },
+          on: { click: _vm.toggleWorkout }
+        },
+        [_vm._v("Start")]
+      )
+    ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "settings__buttons" }, [
-      _c("button", { staticClass: "btn btn--wide" }, [_vm._v("Start")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
