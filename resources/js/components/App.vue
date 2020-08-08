@@ -17,7 +17,7 @@
                     </div>
                     <div class="tabata__tabatas">
                         <h3 class="tabata__heading">Tabatas</h3>
-                        <span class="tabata__number" v-text="doneTabatas"></span>
+                        <span class="tabata__number" v-text="currentTabata"></span>
                     </div>
                 </div>
 
@@ -25,6 +25,7 @@
         </main>
         <div class="sidebar">
             <settings
+                ref="settings"
                 v-bind:cycles="cycles"
                 v-bind:tabatas="tabatas"
                 v-bind:prepareTime="prepareTimeSecond"
@@ -33,7 +34,7 @@
                 @changedCycle="updateCycle"
                 @changeTabatas="updateTabatas"
                 @changeTime="updateTime"
-                @workout="workoutAction"
+                @workout="startWorkout"
                 @pause="pauseWorkout"
             ></settings>
         </div>
@@ -59,7 +60,7 @@
                 timer: 0,
                 prettyTimer:0,
                 workoutInterval:false,
-                doneTabatas: 0,
+                currentTabata: 0,
                 doneStep: 0,
                 tabataSteps: 0,
                 timerTitle: '',
@@ -133,42 +134,20 @@
             runPrepare(){
                 this.timer = this.prepareTimeSecond;
                 this.styleTimer();
-                this.currentCycle = 0;
-                this.displayCycle(this.currentCycle);
+                this.displayCycle(0);
                 this.updateTimerTitle('Prepare');
                 this.runInterval();
-                this.displayTabata(this.doneTabatas);
-            },
-            runInterval(){
-                    if(this.workoutInterval){
-                        return;
-                    }
-
-                    this.workoutInterval = setInterval(()=> {
-
-                        if(this.timer >1){
-                            this.timer--;
-                            this.styleTimer();
-                        }else{
-                            this.clearInterval();
-                            this.doneStep++;
-                            this.workoutAction(true);
-                        }
-                    },1000);
-            },
-            clearInterval(){
-                clearInterval(this.workoutInterval);
-                this.workoutInterval = false;
             },
             finishTabata(){
                 this.doneStep=0;
-                this.doneTabatas++;
-                if(this.doneTabatas === this.tabatas){
+                if(this.currentTabata === this.tabatas){
                     this.prettyTimer = 'Done!';
                     this.updateTimerTitle('');
+                    this.$refs.settings.toggleWorkout();
                 }else{
                     this.workoutAction(true);
                 }
+                this.currentTabata++;
 
             },
             isWorkStep(){
@@ -179,7 +158,7 @@
                 this.timer = this.workTimeSecond;
                 this.styleTimer();
                 this.updateTimerTitle('Work');
-                this.displayCycle(++this.currentCycle);
+                this.currentCycle++;
                 this.runInterval();
             },
             runBreak(){
@@ -192,44 +171,49 @@
                 this.currentCycle = currentCycle;
             },
             displayTabata(tabata){
-                this.doneTabatas = tabata+1;
+                this.currentTabata = tabata;
+            },
+            startWorkout(status){
+                this.currentTabata=1;
+                this.workoutAction(status);
             },
             workoutAction(active){
-                if(active){
+                if(active) {
                     //started
-
-                    if(this.doneStep === 0){
+                    if (this.doneStep === 0) {
                         this.runPrepare();
-                    }else if(this.doneStep === this.tabataSteps){
+                    } else if (this.doneStep === this.tabataSteps) {
                         this.finishTabata();
-                    }else if(this.isWorkStep()){
+                    } else if (this.isWorkStep()) {
                         this.runWork();
-                    }else{
+                    } else {
                         this.runBreak();
                     }
-
-
-
-                    if(this.workoutInterval){
-                       return;
-                    }
-
-                    this.workoutInterval = setInterval(()=> {
-
-                        if(this.timer >1){
-                            this.timer--;
-                            this.styleTimer();
-                        }else{
-                            clearInterval(this.workoutInterval);
-                            this.workoutInterval = false;
-                        }
-                    },1000);
-
                 }else{
-                    // stopped
-                    clearInterval(this.workoutInterval);
-                    this.workoutInterval = false;
+                    //stopped
+                    this.clearInterval();
                 }
+            },
+            runInterval(){
+                if(this.workoutInterval){
+                    return;
+                }
+
+                this.workoutInterval = setInterval(()=> {
+
+                    if(this.timer >1){
+                        this.timer--;
+                        this.styleTimer();
+                    }else{
+                        this.clearInterval();
+                        this.doneStep++;
+                        this.workoutAction(true);
+                    }
+                },1000);
+            },
+            clearInterval(){
+                clearInterval(this.workoutInterval);
+                this.workoutInterval = false;
             },
 
         }

@@ -1952,6 +1952,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1969,7 +1970,7 @@ __webpack_require__.r(__webpack_exports__);
       timer: 0,
       prettyTimer: 0,
       workoutInterval: false,
-      doneTabatas: 0,
+      currentTabata: 0,
       doneStep: 0,
       tabataSteps: 0,
       timerTitle: '',
@@ -2044,11 +2045,65 @@ __webpack_require__.r(__webpack_exports__);
     runPrepare: function runPrepare() {
       this.timer = this.prepareTimeSecond;
       this.styleTimer();
-      this.currentCycle = 0;
-      this.displayCycle(this.currentCycle);
+      this.displayCycle(0);
       this.updateTimerTitle('Prepare');
       this.runInterval();
-      this.displayTabata(this.doneTabatas);
+    },
+    finishTabata: function finishTabata() {
+      this.doneStep = 0;
+
+      if (this.currentTabata === this.tabatas) {
+        this.prettyTimer = 'Done!';
+        this.updateTimerTitle('');
+        this.$refs.settings.toggleWorkout();
+      } else {
+        this.workoutAction(true);
+      }
+
+      this.currentTabata++;
+    },
+    isWorkStep: function isWorkStep() {
+      return Math.abs(this.doneStep % 2) == 1;
+    },
+    runWork: function runWork() {
+      this.timer = this.workTimeSecond;
+      this.styleTimer();
+      this.updateTimerTitle('Work');
+      this.currentCycle++;
+      this.runInterval();
+    },
+    runBreak: function runBreak() {
+      this.timer = this.restTimeSecond;
+      this.styleTimer();
+      this.updateTimerTitle('Break');
+      this.runInterval();
+    },
+    displayCycle: function displayCycle(currentCycle) {
+      this.currentCycle = currentCycle;
+    },
+    displayTabata: function displayTabata(tabata) {
+      this.currentTabata = tabata;
+    },
+    startWorkout: function startWorkout(status) {
+      this.currentTabata = 1;
+      this.workoutAction(status);
+    },
+    workoutAction: function workoutAction(active) {
+      if (active) {
+        //started
+        if (this.doneStep === 0) {
+          this.runPrepare();
+        } else if (this.doneStep === this.tabataSteps) {
+          this.finishTabata();
+        } else if (this.isWorkStep()) {
+          this.runWork();
+        } else {
+          this.runBreak();
+        }
+      } else {
+        //stopped
+        this.clearInterval();
+      }
     },
     runInterval: function runInterval() {
       var _this = this;
@@ -2084,75 +2139,7 @@ __webpack_require__.r(__webpack_exports__);
     }(function () {
       clearInterval(this.workoutInterval);
       this.workoutInterval = false;
-    }),
-    finishTabata: function finishTabata() {
-      this.doneStep = 0;
-      this.doneTabatas++;
-
-      if (this.doneTabatas === this.tabatas) {
-        this.prettyTimer = 'Done!';
-        this.updateTimerTitle('');
-      } else {
-        this.workoutAction(true);
-      }
-    },
-    isWorkStep: function isWorkStep() {
-      return Math.abs(this.doneStep % 2) == 1;
-    },
-    runWork: function runWork() {
-      this.timer = this.workTimeSecond;
-      this.styleTimer();
-      this.updateTimerTitle('Work');
-      this.displayCycle(++this.currentCycle);
-      this.runInterval();
-    },
-    runBreak: function runBreak() {
-      this.timer = this.restTimeSecond;
-      this.styleTimer();
-      this.updateTimerTitle('Break');
-      this.runInterval();
-    },
-    displayCycle: function displayCycle(currentCycle) {
-      this.currentCycle = currentCycle;
-    },
-    displayTabata: function displayTabata(tabata) {
-      this.doneTabatas = tabata + 1;
-    },
-    workoutAction: function workoutAction(active) {
-      var _this2 = this;
-
-      if (active) {
-        //started
-        if (this.doneStep === 0) {
-          this.runPrepare();
-        } else if (this.doneStep === this.tabataSteps) {
-          this.finishTabata();
-        } else if (this.isWorkStep()) {
-          this.runWork();
-        } else {
-          this.runBreak();
-        }
-
-        if (this.workoutInterval) {
-          return;
-        }
-
-        this.workoutInterval = setInterval(function () {
-          if (_this2.timer > 1) {
-            _this2.timer--;
-
-            _this2.styleTimer();
-          } else {
-            clearInterval(_this2.workoutInterval);
-            _this2.workoutInterval = false;
-          }
-        }, 1000);
-      } else {
-        // stopped
-        clearInterval(this.workoutInterval);
-        this.workoutInterval = false;
-      }
-    }
+    })
   }
 });
 
@@ -38033,7 +38020,7 @@ var render = function() {
               _vm._v(" "),
               _c("span", {
                 staticClass: "tabata__number",
-                domProps: { textContent: _vm._s(_vm.doneTabatas) }
+                domProps: { textContent: _vm._s(_vm.currentTabata) }
               })
             ])
           ])
@@ -38045,6 +38032,7 @@ var render = function() {
         { staticClass: "sidebar" },
         [
           _c("settings", {
+            ref: "settings",
             attrs: {
               cycles: _vm.cycles,
               tabatas: _vm.tabatas,
@@ -38056,7 +38044,7 @@ var render = function() {
               changedCycle: _vm.updateCycle,
               changeTabatas: _vm.updateTabatas,
               changeTime: _vm.updateTime,
-              workout: _vm.workoutAction,
+              workout: _vm.startWorkout,
               pause: _vm.pauseWorkout
             }
           })
