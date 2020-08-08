@@ -13,11 +13,11 @@
                 <div class="tabata__additional">
                     <div class="tabata__cycles">
                         <h3 class="tabata__heading">Cycles</h3>
-                        <span class="tabata__number" v-text="cyclesValue"></span>
+                        <span class="tabata__number" v-text="currentCycle"></span>
                     </div>
                     <div class="tabata__tabatas">
                         <h3 class="tabata__heading">Tabatas</h3>
-                        <span class="tabata__number" v-text="tabatasValue"></span>
+                        <span class="tabata__number" v-text="doneTabatas"></span>
                     </div>
                 </div>
 
@@ -25,8 +25,8 @@
         </main>
         <div class="sidebar">
             <settings
-                v-bind:cycles="cyclesValue"
-                v-bind:tabatas="tabatasValue"
+                v-bind:cycles="cycles"
+                v-bind:tabatas="tabatas"
                 v-bind:prepareTime="prepareTimeSecond"
                 v-bind:workTime="workTimeSecond"
                 v-bind:restTime="restTimeSecond"
@@ -51,41 +51,57 @@
         },
         data(){
             return {
-                cyclesValue: 8,
-                tabatasValue: 1,
+                cycles: 8,
+                tabatas: 1,
                 prepareTimeSecond: 10,
                 workTimeSecond: 20,
                 restTimeSecond: 10,
                 timer: 0,
                 prettyTimer:0,
                 workoutInterval:false,
-                doneCycles: 0,
                 doneTabatas: 0,
-                timerTitle: ''
+                doneStep: 0,
+                tabataSteps: 0,
+                timerTitle: '',
+                currentCycle: 1,
+
 
             }
         },
         mounted() {
             this.updateTimer();
+            this.countSteps();
+            this.displayCycle(this.cycles);
+            this.displayTabata(this.tabatas);
         },
         methods: {
+            countSteps(){
+                this.tabataSteps = 1 + (this.cycles*2);
+            },
             updateCycle(cycle){
-                this.cyclesValue = cycle;
+                this.cycles = cycle;
+                this.displayCycle(this.cycles);
                 this.updateTimer();
+                this.countSteps();
             },
             updateTabatas(tabatas){
-                this.tabatasValue = tabatas;
+                this.tabatas = tabatas;
                 this.updateTimer();
+                this.displayTabata(tabatas);
+                this.countSteps();
             },
             updateTimer(){
-                const cycleWorkingTime = (this.cyclesValue * this.workTimeSecond);
-                const cycleBreakTime = (this.cyclesValue*this.restTimeSecond);
+                const cycleWorkingTime = (this.cycles * this.workTimeSecond);
+                const cycleBreakTime = (this.cycles*this.restTimeSecond);
                 const singleTabataTime = this.prepareTimeSecond + cycleWorkingTime + cycleBreakTime;
-                this.timer = singleTabataTime* this.tabatasValue;
+                this.timer = singleTabataTime* this.tabatas;
                 this.styleTimer();
             },
             styleTimer(){
                 this.prettyTimer = new Date(this.timer * 1000).toISOString().substr(11, 8);
+            },
+            updateTimerTitle(title){
+                this.timerTitle = title;
             },
             updateTime(obj){
                 const seconds = obj.seconds;
@@ -110,17 +126,96 @@
                     clearInterval(this.workoutInterval);
                     this.workoutInterval= false;
                 }else{
+                    this.runInterval();
+                }
+            },
+
+            runPrepare(){
+                this.timer = this.prepareTimeSecond;
+                this.styleTimer();
+                this.currentCycle = 0;
+                this.displayCycle(this.currentCycle);
+                this.updateTimerTitle('Prepare');
+                this.runInterval();
+                this.displayTabata(this.doneTabatas);
+            },
+            runInterval(){
+                    if(this.workoutInterval){
+                        return;
+                    }
+
+                    this.workoutInterval = setInterval(()=> {
+
+                        if(this.timer >1){
+                            this.timer--;
+                            this.styleTimer();
+                        }else{
+                            this.clearInterval();
+                            this.doneStep++;
+                            this.workoutAction(true);
+                        }
+                    },1000);
+            },
+            clearInterval(){
+                clearInterval(this.workoutInterval);
+                this.workoutInterval = false;
+            },
+            finishTabata(){
+                this.doneStep=0;
+                this.doneTabatas++;
+                if(this.doneTabatas === this.tabatas){
+                    this.prettyTimer = 'Done!';
+                    this.updateTimerTitle('');
+                }else{
                     this.workoutAction(true);
                 }
+
+            },
+            isWorkStep(){
+                return Math.abs(this.doneStep % 2) == 1;
+
+            },
+            runWork(){
+                this.timer = this.workTimeSecond;
+                this.styleTimer();
+                this.updateTimerTitle('Work');
+                this.displayCycle(++this.currentCycle);
+                this.runInterval();
+            },
+            runBreak(){
+                this.timer = this.restTimeSecond;
+                this.styleTimer();
+                this.updateTimerTitle('Break');
+                this.runInterval();
+            },
+            displayCycle(currentCycle){
+                this.currentCycle = currentCycle;
+            },
+            displayTabata(tabata){
+                this.doneTabatas = tabata+1;
             },
             workoutAction(active){
                 if(active){
                     //started
+
+                    if(this.doneStep === 0){
+                        this.runPrepare();
+                    }else if(this.doneStep === this.tabataSteps){
+                        this.finishTabata();
+                    }else if(this.isWorkStep()){
+                        this.runWork();
+                    }else{
+                        this.runBreak();
+                    }
+
+
+
                     if(this.workoutInterval){
                        return;
                     }
 
                     this.workoutInterval = setInterval(()=> {
+
                         if(this.timer >1){
                             this.timer--;
                             this.styleTimer();

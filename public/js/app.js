@@ -1961,40 +1961,55 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      cyclesValue: 8,
-      tabatasValue: 1,
+      cycles: 8,
+      tabatas: 1,
       prepareTimeSecond: 10,
       workTimeSecond: 20,
       restTimeSecond: 10,
       timer: 0,
       prettyTimer: 0,
       workoutInterval: false,
-      doneCycles: 0,
       doneTabatas: 0,
-      timerTitle: ''
+      doneStep: 0,
+      tabataSteps: 0,
+      timerTitle: '',
+      currentCycle: 1
     };
   },
   mounted: function mounted() {
     this.updateTimer();
+    this.countSteps();
+    this.displayCycle(this.cycles);
+    this.displayTabata(this.tabatas);
   },
   methods: {
+    countSteps: function countSteps() {
+      this.tabataSteps = 1 + this.cycles * 2;
+    },
     updateCycle: function updateCycle(cycle) {
-      this.cyclesValue = cycle;
+      this.cycles = cycle;
+      this.displayCycle(this.cycles);
       this.updateTimer();
+      this.countSteps();
     },
     updateTabatas: function updateTabatas(tabatas) {
-      this.tabatasValue = tabatas;
+      this.tabatas = tabatas;
       this.updateTimer();
+      this.displayTabata(tabatas);
+      this.countSteps();
     },
     updateTimer: function updateTimer() {
-      var cycleWorkingTime = this.cyclesValue * this.workTimeSecond;
-      var cycleBreakTime = this.cyclesValue * this.restTimeSecond;
+      var cycleWorkingTime = this.cycles * this.workTimeSecond;
+      var cycleBreakTime = this.cycles * this.restTimeSecond;
       var singleTabataTime = this.prepareTimeSecond + cycleWorkingTime + cycleBreakTime;
-      this.timer = singleTabataTime * this.tabatasValue;
+      this.timer = singleTabataTime * this.tabatas;
       this.styleTimer();
     },
     styleTimer: function styleTimer() {
       this.prettyTimer = new Date(this.timer * 1000).toISOString().substr(11, 8);
+    },
+    updateTimerTitle: function updateTimerTitle(title) {
+      this.timerTitle = title;
     },
     updateTime: function updateTime(obj) {
       var seconds = obj.seconds;
@@ -2023,26 +2038,113 @@ __webpack_require__.r(__webpack_exports__);
         clearInterval(this.workoutInterval);
         this.workoutInterval = false;
       } else {
+        this.runInterval();
+      }
+    },
+    runPrepare: function runPrepare() {
+      this.timer = this.prepareTimeSecond;
+      this.styleTimer();
+      this.currentCycle = 0;
+      this.displayCycle(this.currentCycle);
+      this.updateTimerTitle('Prepare');
+      this.runInterval();
+      this.displayTabata(this.doneTabatas);
+    },
+    runInterval: function runInterval() {
+      var _this = this;
+
+      if (this.workoutInterval) {
+        return;
+      }
+
+      this.workoutInterval = setInterval(function () {
+        if (_this.timer > 1) {
+          _this.timer--;
+
+          _this.styleTimer();
+        } else {
+          _this.clearInterval();
+
+          _this.doneStep++;
+
+          _this.workoutAction(true);
+        }
+      }, 1000);
+    },
+    clearInterval: function (_clearInterval) {
+      function clearInterval() {
+        return _clearInterval.apply(this, arguments);
+      }
+
+      clearInterval.toString = function () {
+        return _clearInterval.toString();
+      };
+
+      return clearInterval;
+    }(function () {
+      clearInterval(this.workoutInterval);
+      this.workoutInterval = false;
+    }),
+    finishTabata: function finishTabata() {
+      this.doneStep = 0;
+      this.doneTabatas++;
+
+      if (this.doneTabatas === this.tabatas) {
+        this.prettyTimer = 'Done!';
+        this.updateTimerTitle('');
+      } else {
         this.workoutAction(true);
       }
     },
+    isWorkStep: function isWorkStep() {
+      return Math.abs(this.doneStep % 2) == 1;
+    },
+    runWork: function runWork() {
+      this.timer = this.workTimeSecond;
+      this.styleTimer();
+      this.updateTimerTitle('Work');
+      this.displayCycle(++this.currentCycle);
+      this.runInterval();
+    },
+    runBreak: function runBreak() {
+      this.timer = this.restTimeSecond;
+      this.styleTimer();
+      this.updateTimerTitle('Break');
+      this.runInterval();
+    },
+    displayCycle: function displayCycle(currentCycle) {
+      this.currentCycle = currentCycle;
+    },
+    displayTabata: function displayTabata(tabata) {
+      this.doneTabatas = tabata + 1;
+    },
     workoutAction: function workoutAction(active) {
-      var _this = this;
+      var _this2 = this;
 
       if (active) {
         //started
+        if (this.doneStep === 0) {
+          this.runPrepare();
+        } else if (this.doneStep === this.tabataSteps) {
+          this.finishTabata();
+        } else if (this.isWorkStep()) {
+          this.runWork();
+        } else {
+          this.runBreak();
+        }
+
         if (this.workoutInterval) {
           return;
         }
 
         this.workoutInterval = setInterval(function () {
-          if (_this.timer > 1) {
-            _this.timer--;
+          if (_this2.timer > 1) {
+            _this2.timer--;
 
-            _this.styleTimer();
+            _this2.styleTimer();
           } else {
-            clearInterval(_this.workoutInterval);
-            _this.workoutInterval = false;
+            clearInterval(_this2.workoutInterval);
+            _this2.workoutInterval = false;
           }
         }, 1000);
       } else {
@@ -37922,7 +38024,7 @@ var render = function() {
               _vm._v(" "),
               _c("span", {
                 staticClass: "tabata__number",
-                domProps: { textContent: _vm._s(_vm.cyclesValue) }
+                domProps: { textContent: _vm._s(_vm.currentCycle) }
               })
             ]),
             _vm._v(" "),
@@ -37931,7 +38033,7 @@ var render = function() {
               _vm._v(" "),
               _c("span", {
                 staticClass: "tabata__number",
-                domProps: { textContent: _vm._s(_vm.tabatasValue) }
+                domProps: { textContent: _vm._s(_vm.doneTabatas) }
               })
             ])
           ])
@@ -37944,8 +38046,8 @@ var render = function() {
         [
           _c("settings", {
             attrs: {
-              cycles: _vm.cyclesValue,
-              tabatas: _vm.tabatasValue,
+              cycles: _vm.cycles,
+              tabatas: _vm.tabatas,
               prepareTime: _vm.prepareTimeSecond,
               workTime: _vm.workTimeSecond,
               restTime: _vm.restTimeSecond
