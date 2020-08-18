@@ -50,13 +50,20 @@
             'header-element': Header,
             'settings': Settings
         },
+        props:{
+            tabataCycle: Number,
+            tabataCounter: Number,
+            prepare: Number,
+            work: Number,
+            rest: Number,
+        },
         data(){
             return {
-                cycles: 8,
-                tabatas: 1,
-                prepareTimeSecond: 10,
-                workTimeSecond: 20,
-                restTimeSecond: 10,
+                cycles: this.tabataCycle,
+                tabatas: this.tabataCounter,
+                prepareTimeSecond: this.prepare,
+                workTimeSecond: this.work,
+                restTimeSecond: this.rest,
                 timer: 0,
                 prettyTimer:0,
                 workoutInterval:false,
