@@ -1910,6 +1910,8 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Header */ "./resources/js/components/Header.vue");
 /* harmony import */ var _Settings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Settings */ "./resources/js/components/Settings.vue");
+/* harmony import */ var _utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../utilities/body-type-manager */ "./resources/js/utilities/body-type-manager.js");
+/* harmony import */ var _utilities_audio_manager__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../utilities/audio-manager */ "./resources/js/utilities/audio-manager.js");
 //
 //
 //
@@ -1953,6 +1955,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1981,16 +1985,22 @@ __webpack_require__.r(__webpack_exports__);
       doneStep: 0,
       tabataSteps: 0,
       timerTitle: '',
-      currentCycle: 1
+      currentCycle: 1,
+      audio: null
     };
   },
   mounted: function mounted() {
-    this.updateTimer();
-    this.countSteps();
-    this.displayCycle(this.cycles);
-    this.displayTabata(this.tabatas);
+    this.init();
   },
   methods: {
+    init: function init() {
+      this.updateTimer();
+      this.countSteps();
+      this.displayCycle(this.cycles);
+      this.displayTabata(this.tabatas);
+      _utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].setGlobalType(_utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].Types.INIT);
+      this.audio = new _utilities_audio_manager__WEBPACK_IMPORTED_MODULE_3__["default"]('beep-sound');
+    },
     countSteps: function countSteps() {
       this.tabataSteps = 1 + this.cycles * 2;
     },
@@ -2048,16 +2058,20 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.runInterval();
       }
+
+      _utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].pauseTabata();
     },
     runPrepare: function runPrepare() {
       this.timer = this.prepareTimeSecond;
       this.styleTimer();
       this.displayCycle(0);
       this.updateTimerTitle('Prepare');
+      _utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].setGlobalType(_utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].Types.PREPARE);
       this.runInterval();
     },
     finishTabata: function finishTabata() {
       this.doneStep = 0;
+      _utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].setGlobalType(_utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].Types.INIT);
 
       if (this.currentTabata === this.tabatas) {
         this.prettyTimer = 'Done!';
@@ -2065,9 +2079,8 @@ __webpack_require__.r(__webpack_exports__);
         this.$refs.settings.toggleWorkout();
       } else {
         this.workoutAction(true);
+        this.currentTabata++;
       }
-
-      this.currentTabata++;
     },
     isWorkStep: function isWorkStep() {
       return Math.abs(this.doneStep % 2) == 1;
@@ -2076,6 +2089,7 @@ __webpack_require__.r(__webpack_exports__);
       this.timer = this.workTimeSecond;
       this.styleTimer();
       this.updateTimerTitle('Work');
+      _utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].setGlobalType(_utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].Types.WORK);
       this.currentCycle++;
       this.runInterval();
     },
@@ -2083,6 +2097,7 @@ __webpack_require__.r(__webpack_exports__);
       this.timer = this.restTimeSecond;
       this.styleTimer();
       this.updateTimerTitle('Break');
+      _utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].setGlobalType(_utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].Types.REST);
       this.runInterval();
     },
     displayCycle: function displayCycle(currentCycle) {
@@ -2110,6 +2125,7 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         //stopped
         this.clearInterval();
+        this.init();
       }
     },
     runInterval: function runInterval() {
@@ -38000,7 +38016,7 @@ var render = function() {
       _c("header-element"),
       _vm._v(" "),
       _c("main", { staticClass: "content-section" }, [
-        _c("nav", { staticClass: "nav" }),
+        _vm._m(0),
         _vm._v(" "),
         _c("div", { staticClass: "tabata" }, [
           _c("div", { staticClass: "tabata__timer" }, [
@@ -38062,7 +38078,16 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("nav", { staticClass: "nav" }, [
+      _c("audio", { attrs: { src: "images/beep.mp3", id: "beep-sound" } })
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -50858,6 +50883,110 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TimerField_vue_vue_type_template_id_484cb6e0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/types/global-types.js":
+/*!********************************************!*\
+  !*** ./resources/js/types/global-types.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  WORK: 'work',
+  REST: 'rest',
+  PREPARE: 'prepare',
+  DONE: 'done',
+  INIT: 'init',
+  PAUSE: 'pause'
+});
+
+/***/ }),
+
+/***/ "./resources/js/utilities/audio-manager.js":
+/*!*************************************************!*\
+  !*** ./resources/js/utilities/audio-manager.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Beep = /*#__PURE__*/function () {
+  function Beep(idSelector) {
+    _classCallCheck(this, Beep);
+
+    this.audio = document.getElementById(idSelector);
+  }
+
+  _createClass(Beep, [{
+    key: "stop",
+    value: function stop() {
+      this.audio.stop();
+    }
+  }, {
+    key: "play",
+    value: function play() {
+      this.audio.play();
+      console.log('playing');
+    }
+  }, {
+    key: "pause",
+    value: function pause() {
+      this.audio.pause();
+    }
+  }]);
+
+  return Beep;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Beep);
+
+/***/ }),
+
+/***/ "./resources/js/utilities/body-type-manager.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/utilities/body-type-manager.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _types_global_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/global-types */ "./resources/js/types/global-types.js");
+
+var bodyElement = document.querySelector('body');
+
+function setGlobalType(type) {
+  clearGlobalTypes();
+  bodyElement.classList.add('global-' + type);
+}
+
+function clearGlobalTypes() {
+  bodyElement.classList.forEach(function (item) {
+    if (item.includes('global-')) bodyElement.classList.remove(item);
+  });
+}
+
+function pauseTabata() {
+  bodyElement.classList.toggle('pause');
+}
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  setGlobalType: setGlobalType,
+  clearGlobalTypes: clearGlobalTypes,
+  pauseTabata: pauseTabata,
+  Types: _types_global_types__WEBPACK_IMPORTED_MODULE_0__["default"]
+});
 
 /***/ }),
 

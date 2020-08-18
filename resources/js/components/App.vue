@@ -3,7 +3,7 @@
         <header-element></header-element>
         <main class="content-section">
             <nav class="nav">
-
+                <audio src="images/beep.mp3" id="beep-sound"></audio>
             </nav>
             <div class="tabata">
                 <div class="tabata__timer">
@@ -44,6 +44,8 @@
 <script>
     import Header from "./Header";
     import Settings from "./Settings";
+    import BodyTypeManager from "./../utilities/body-type-manager";
+    import Beep from './../utilities/audio-manager';
 
     export default {
         components: {
@@ -72,17 +74,21 @@
                 tabataSteps: 0,
                 timerTitle: '',
                 currentCycle: 1,
-
-
+                audio: null,
             }
         },
         mounted() {
-            this.updateTimer();
-            this.countSteps();
-            this.displayCycle(this.cycles);
-            this.displayTabata(this.tabatas);
+            this.init();
         },
         methods: {
+            init(){
+                this.updateTimer();
+                this.countSteps();
+                this.displayCycle(this.cycles);
+                this.displayTabata(this.tabatas);
+                BodyTypeManager.setGlobalType(BodyTypeManager.Types.INIT);
+                this.audio = new Beep('beep-sound');
+            },
             countSteps(){
                 this.tabataSteps = 1 + (this.cycles*2);
             },
@@ -136,6 +142,7 @@
                 }else{
                     this.runInterval();
                 }
+                BodyTypeManager.pauseTabata();
             },
 
             runPrepare(){
@@ -143,28 +150,30 @@
                 this.styleTimer();
                 this.displayCycle(0);
                 this.updateTimerTitle('Prepare');
+                BodyTypeManager.setGlobalType(BodyTypeManager.Types.PREPARE);
                 this.runInterval();
             },
             finishTabata(){
                 this.doneStep=0;
+                BodyTypeManager.setGlobalType(BodyTypeManager.Types.INIT);
                 if(this.currentTabata === this.tabatas){
                     this.prettyTimer = 'Done!';
                     this.updateTimerTitle('');
                     this.$refs.settings.toggleWorkout();
                 }else{
                     this.workoutAction(true);
+                    this.currentTabata++;
                 }
-                this.currentTabata++;
 
             },
             isWorkStep(){
                 return Math.abs(this.doneStep % 2) == 1;
-
             },
             runWork(){
                 this.timer = this.workTimeSecond;
                 this.styleTimer();
                 this.updateTimerTitle('Work');
+                BodyTypeManager.setGlobalType(BodyTypeManager.Types.WORK);
                 this.currentCycle++;
                 this.runInterval();
             },
@@ -172,6 +181,7 @@
                 this.timer = this.restTimeSecond;
                 this.styleTimer();
                 this.updateTimerTitle('Break');
+                BodyTypeManager.setGlobalType(BodyTypeManager.Types.REST);
                 this.runInterval();
             },
             displayCycle(currentCycle){
@@ -199,6 +209,7 @@
                 }else{
                     //stopped
                     this.clearInterval();
+                    this.init();
                 }
             },
             runInterval(){
