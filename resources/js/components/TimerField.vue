@@ -1,8 +1,10 @@
 <template>
     <div class="timer-field">
-        <input type="text" v-model="formatedTime"  class="timer-field__input" readonly/>
         <button class="timer-field__btn timer-field__btn--minus"  @click="subtract" @mousedown="subtractStart" @mouseup="stopCounter" @mouseleave="stopCounter">-</button>
-        <button class="timer-field__btn timer-field__btn--plus" @click="add"  @mousedown="addStart" @mouseup="stopCounter" @mouseleave="stopCounter">+</button>
+
+        <input type="text" v-model="formatedTime"  class="timer-field__input" readonly/>
+            <button class="timer-field__btn timer-field__btn--plus" @click="add"  @mousedown="addStart" @mouseup="stopCounter" @mouseleave="stopCounter">+</button>
+
     </div>
 </template>
 

@@ -1,30 +1,31 @@
 <template>
-    <div class="settings">
-        <div class="setting">
-            <span class="setting__title">Prepare</span>
-            <timer-field v-bind:timeSeconds="prepareTime" timeType="prepare" @changeTime="updateTime"></timer-field>
-        </div>
-        <div class="setting">
-            <span class="setting__title">Work</span>
-            <timer-field  v-bind:timeSeconds="workTime" timeType="work" @changeTime="updateTime"></timer-field>
-        </div>
-        <div class="setting">
-            <span class="setting__title">Rest</span>
-            <timer-field v-bind:timeSeconds="restTime" timeType="rest" @changeTime="updateTime"></timer-field>
+    <div class="control-wrapper">
+        <div class="settings">
+            <div class="setting">
+                <span class="setting__title">Prepare</span>
+                <timer-field v-bind:timeSeconds="prepareTime" timeType="prepare" @changeTime="updateTime"></timer-field>
+            </div>
+            <div class="setting">
+                <span class="setting__title">Work</span>
+                <timer-field  v-bind:timeSeconds="workTime" timeType="work" @changeTime="updateTime"></timer-field>
+            </div>
+            <div class="setting">
+                <span class="setting__title">Rest</span>
+                <timer-field v-bind:timeSeconds="restTime" timeType="rest" @changeTime="updateTime"></timer-field>
 
+            </div>
+            <div class="setting">
+                <span class="setting__title">Cycles</span>
+                <vue-slider ref="slider" v-model="value1"  v-bind="options1" class="setting__slider"></vue-slider>
+            </div>
+            <div class="setting">
+                <span class="setting__title">Tabatas</span>
+                <vue-slider  ref="slider" v-model="value2"  v-bind="options2"  class="setting__slider"></vue-slider>
+            </div>
         </div>
-        <div class="setting">
-            <span class="setting__title">Cycles</span>
-            <vue-slider ref="slider" v-model="value1"  v-bind="options1" class="setting__slider"></vue-slider>
-        </div>
-        <div class="setting">
-            <span class="setting__title">Tabatas</span>
-            <vue-slider  ref="slider" v-model="value2"  v-bind="options2"  class="setting__slider"></vue-slider>
-        </div>
-
-        <div class="settings__buttons">
-            <button class="btn btn--wide" v-if="pauseButtonStatus" @click="pauseWorkout"  v-text="!resumeStatus? 'Pause':'Resume'"></button>
-            <button class="btn btn--wide" @click="toggleWorkout" v-text="!working? 'Start': 'Stop'">Start</button>
+        <div class="action-buttons">
+            <button class="btn btn--elipse" v-if="pauseButtonStatus" @click="pauseWorkout"  v-text="!resumeStatus? 'Pause':'Resume'"></button>
+            <button class="btn btn--elipse" @click="toggleWorkout" v-text="!working? 'Start': 'Stop'">Start</button>
         </div>
     </div>
 </template>

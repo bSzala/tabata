@@ -1,9 +1,10 @@
 .setting{
-    padding: .5rem 2rem;
-    background-color: $color-white;
-    margin: 1rem;
-
-    border: 1px solid $color-grey-light;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 15%;
+    padding: 1rem 0 3rem;
 
     &__title{
         font-size: 2rem;

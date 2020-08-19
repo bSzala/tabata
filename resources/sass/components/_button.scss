@@ -8,6 +8,11 @@
         background-color: $color-white;
         border:1px solid $color-grey-light;
         cursor: pointer;
+        outline: none;
+    }
+
+    &:active{
+        outline: none;
     }
 
     &:hover{
@@ -21,5 +26,54 @@
     &--wide{
         flex: 0 0 95%;
         margin: 1rem auto;
+    }
+
+    &--elipse{
+        margin: 1rem auto;
+        border-radius: 2rem;
+    }
+}
+
+
+.btn-control{
+    padding: 2rem;
+    display: inline-block;
+
+    &,
+    &:link,
+    &:visited{
+        background-color: $color-white;
+        border:1px solid $color-grey-light;
+        cursor: pointer;
+        outline: none;
+    }
+
+    &:active{
+        outline: none;
+    }
+
+    &:hover{
+        background-image: linear-gradient(to right bottom, $color-white 50%, rgba($color-grey,.5));
+    }
+
+    &--elipse{
+        margin: 1rem auto;
+        border-radius: 2rem;
+    }
+
+    &--blue{
+        &,
+        &:link,
+        &:visited{
+            background-color: $color-primary-light;
+            border:1px solid $color-primary-dark;
+            cursor: pointer;
+            outline: none;
+            color: $color-white;
+        }
+
+        &:hover{
+            background-image: linear-gradient(to right bottom, $color-primary-light 20%, rgba($color-primary-dark,.5));
+        }
     }
 }

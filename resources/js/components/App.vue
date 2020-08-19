@@ -2,18 +2,12 @@
     <div class="container">
         <header-element></header-element>
         <main class="content-section">
-            <nav class="nav">
-                <audio id="beep-sound">
-                    <source src="sounds/beep-08b.mp3" type="audio/mpeg">
-                    <source src="sounds/beep-08b.wav" type="audio/wav">
-                    <source src="sounds/beep-08b.ogg" type="audio/ogg">
-                </audio>
-            </nav>
+            <audio id="beep-sound">
+                <source src="sounds/beep-08b.mp3" type="audio/mpeg">
+                <source src="sounds/beep-08b.wav" type="audio/wav">
+                <source src="sounds/beep-08b.ogg" type="audio/ogg">
+            </audio>
             <div class="tabata">
-                <div class="tabata__timer">
-                    <h3 class="tabata__title" v-text="timerTitle"></h3>
-                    <span>{{prettyTimer}}</span>
-                </div>
                 <div class="tabata__additional">
                     <div class="tabata__cycles">
                         <h3 class="tabata__heading">Cycles</h3>
@@ -24,24 +18,38 @@
                         <span class="tabata__number" v-text="currentTabata"></span>
                     </div>
                 </div>
+                <div class="tabata__timer">
+                    <h3 class="tabata__title" v-text="timerTitle"></h3>
+                    <span>{{prettyTimer}}</span>
+                </div>
+
+
+                <div class="tabata__controls">
+                    <button class="btn-control btn-control--elipse" v-if="pauseActive" @click="pauseWorkout"  v-text="!resumeCurrent? 'Pause':'Resume'"></button>
+                    <button class="btn-control btn-control--elipse btn-control--blue" @click="toggleWorkout" v-text="!isWorking? 'Start': 'Stop'">Start</button>
+                </div>
 
             </div>
+            <div class="sidebar" v-show="showSidebar">
+                <settings
+                    ref="settings"
+                    v-bind:cycles="cycles"
+                    v-bind:tabatas="tabatas"
+                    v-bind:prepareTime="prepareTimeSecond"
+                    v-bind:workTime="workTimeSecond"
+                    v-bind:restTime="restTimeSecond"
+                    @changedCycle="updateCycle"
+                    @changeTabatas="updateTabatas"
+                    @changeTime="updateTime"
+                    @workout="startWorkout"
+                    @pause="pauseWorkout"
+                ></settings>
+            </div>
         </main>
-        <div class="sidebar">
-            <settings
-                ref="settings"
-                v-bind:cycles="cycles"
-                v-bind:tabatas="tabatas"
-                v-bind:prepareTime="prepareTimeSecond"
-                v-bind:workTime="workTimeSecond"
-                v-bind:restTime="restTimeSecond"
-                @changedCycle="updateCycle"
-                @changeTabatas="updateTabatas"
-                @changeTime="updateTime"
-                @workout="startWorkout"
-                @pause="pauseWorkout"
-            ></settings>
-        </div>
+        <nav class="nav">
+            <button class="nav__item" @click="toggleSidebar"><i class="fas fa-bars"></i></button>
+        </nav>
+
     </div>
 </template>
 
@@ -79,6 +87,10 @@
                 timerTitle: '',
                 currentCycle: 1,
                 audio: null,
+                showSidebar: false,
+                pauseActive: false,
+                resumeCurrent: false,
+                isWorking: false,
             }
         },
         mounted() {
@@ -95,6 +107,18 @@
                 this.displayTabata(this.tabatas);
                 BodyTypeManager.setGlobalType(BodyTypeManager.Types.INIT);
                 this.audio = new Beep('beep-sound');
+            },
+            toggleSidebar(){
+                this.showSidebar = !this.showSidebar;
+            },
+            toggleWorkout(){
+                this.isWorking = !this.isWorking;
+                if(this.isWorking){
+                    this.pauseActive = true;
+                }else{
+                    this.pauseActive = false;
+                }
+                this.$refs.settings.toggleWorkout();
             },
             countSteps(){
                 this.tabataSteps = 1 + (this.cycles*2);
@@ -146,8 +170,10 @@
                 if(this.workoutInterval){
                     clearInterval(this.workoutInterval);
                     this.workoutInterval= false;
+                    this.resumeCurrent = true;
                 }else{
                     this.runInterval();
+                    this.resumeCurrent=false;
                 }
                 BodyTypeManager.pauseTabata();
             },

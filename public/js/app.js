@@ -1959,6 +1959,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1990,7 +1998,11 @@ __webpack_require__.r(__webpack_exports__);
       tabataSteps: 0,
       timerTitle: '',
       currentCycle: 1,
-      audio: null
+      audio: null,
+      showSidebar: false,
+      pauseActive: false,
+      resumeCurrent: false,
+      isWorking: false
     };
   },
   mounted: function mounted() {
@@ -2007,6 +2019,20 @@ __webpack_require__.r(__webpack_exports__);
       this.displayTabata(this.tabatas);
       _utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].setGlobalType(_utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].Types.INIT);
       this.audio = new _utilities_audio_manager__WEBPACK_IMPORTED_MODULE_3__["default"]('beep-sound');
+    },
+    toggleSidebar: function toggleSidebar() {
+      this.showSidebar = !this.showSidebar;
+    },
+    toggleWorkout: function toggleWorkout() {
+      this.isWorking = !this.isWorking;
+
+      if (this.isWorking) {
+        this.pauseActive = true;
+      } else {
+        this.pauseActive = false;
+      }
+
+      this.$refs.settings.toggleWorkout();
     },
     countSteps: function countSteps() {
       this.tabataSteps = 1 + this.cycles * 2;
@@ -2062,8 +2088,10 @@ __webpack_require__.r(__webpack_exports__);
       if (this.workoutInterval) {
         clearInterval(this.workoutInterval);
         this.workoutInterval = false;
+        this.resumeCurrent = true;
       } else {
         this.runInterval();
+        this.resumeCurrent = false;
       }
 
       _utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].pauseTabata();
@@ -2247,6 +2275,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2358,6 +2387,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -38032,15 +38063,6 @@ var render = function() {
         _vm._m(0),
         _vm._v(" "),
         _c("div", { staticClass: "tabata" }, [
-          _c("div", { staticClass: "tabata__timer" }, [
-            _c("h3", {
-              staticClass: "tabata__title",
-              domProps: { textContent: _vm._s(_vm.timerTitle) }
-            }),
-            _vm._v(" "),
-            _c("span", [_vm._v(_vm._s(_vm.prettyTimer))])
-          ]),
-          _vm._v(" "),
           _c("div", { staticClass: "tabata__additional" }, [
             _c("div", { staticClass: "tabata__cycles" }, [
               _c("h3", { staticClass: "tabata__heading" }, [_vm._v("Cycles")]),
@@ -38059,34 +38081,86 @@ var render = function() {
                 domProps: { textContent: _vm._s(_vm.currentTabata) }
               })
             ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "tabata__timer" }, [
+            _c("h3", {
+              staticClass: "tabata__title",
+              domProps: { textContent: _vm._s(_vm.timerTitle) }
+            }),
+            _vm._v(" "),
+            _c("span", [_vm._v(_vm._s(_vm.prettyTimer))])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "tabata__controls" }, [
+            _vm.pauseActive
+              ? _c("button", {
+                  staticClass: "btn-control btn-control--elipse",
+                  domProps: {
+                    textContent: _vm._s(!_vm.resumeCurrent ? "Pause" : "Resume")
+                  },
+                  on: { click: _vm.pauseWorkout }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass:
+                  "btn-control btn-control--elipse btn-control--blue",
+                domProps: {
+                  textContent: _vm._s(!_vm.isWorking ? "Start" : "Stop")
+                },
+                on: { click: _vm.toggleWorkout }
+              },
+              [_vm._v("Start")]
+            )
           ])
-        ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.showSidebar,
+                expression: "showSidebar"
+              }
+            ],
+            staticClass: "sidebar"
+          },
+          [
+            _c("settings", {
+              ref: "settings",
+              attrs: {
+                cycles: _vm.cycles,
+                tabatas: _vm.tabatas,
+                prepareTime: _vm.prepareTimeSecond,
+                workTime: _vm.workTimeSecond,
+                restTime: _vm.restTimeSecond
+              },
+              on: {
+                changedCycle: _vm.updateCycle,
+                changeTabatas: _vm.updateTabatas,
+                changeTime: _vm.updateTime,
+                workout: _vm.startWorkout,
+                pause: _vm.pauseWorkout
+              }
+            })
+          ],
+          1
+        )
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "sidebar" },
-        [
-          _c("settings", {
-            ref: "settings",
-            attrs: {
-              cycles: _vm.cycles,
-              tabatas: _vm.tabatas,
-              prepareTime: _vm.prepareTimeSecond,
-              workTime: _vm.workTimeSecond,
-              restTime: _vm.restTimeSecond
-            },
-            on: {
-              changedCycle: _vm.updateCycle,
-              changeTabatas: _vm.updateTabatas,
-              changeTime: _vm.updateTime,
-              workout: _vm.startWorkout,
-              pause: _vm.pauseWorkout
-            }
-          })
-        ],
-        1
-      )
+      _c("nav", { staticClass: "nav" }, [
+        _c(
+          "button",
+          { staticClass: "nav__item", on: { click: _vm.toggleSidebar } },
+          [_c("i", { staticClass: "fas fa-bars" })]
+        )
+      ])
     ],
     1
   )
@@ -38096,20 +38170,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("nav", { staticClass: "nav" }, [
-      _c("audio", { attrs: { id: "beep-sound" } }, [
-        _c("source", {
-          attrs: { src: "sounds/beep-08b.mp3", type: "audio/mpeg" }
-        }),
-        _vm._v(" "),
-        _c("source", {
-          attrs: { src: "sounds/beep-08b.wav", type: "audio/wav" }
-        }),
-        _vm._v(" "),
-        _c("source", {
-          attrs: { src: "sounds/beep-08b.ogg", type: "audio/ogg" }
-        })
-      ])
+    return _c("audio", { attrs: { id: "beep-sound" } }, [
+      _c("source", {
+        attrs: { src: "sounds/beep-08b.mp3", type: "audio/mpeg" }
+      }),
+      _vm._v(" "),
+      _c("source", {
+        attrs: { src: "sounds/beep-08b.wav", type: "audio/wav" }
+      }),
+      _vm._v(" "),
+      _c("source", { attrs: { src: "sounds/beep-08b.ogg", type: "audio/ogg" } })
     ])
   }
 ]
@@ -38167,111 +38237,113 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "settings" }, [
-    _c(
-      "div",
-      { staticClass: "setting" },
-      [
-        _c("span", { staticClass: "setting__title" }, [_vm._v("Prepare")]),
-        _vm._v(" "),
-        _c("timer-field", {
-          attrs: { timeSeconds: _vm.prepareTime, timeType: "prepare" },
-          on: { changeTime: _vm.updateTime }
-        })
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "setting" },
-      [
-        _c("span", { staticClass: "setting__title" }, [_vm._v("Work")]),
-        _vm._v(" "),
-        _c("timer-field", {
-          attrs: { timeSeconds: _vm.workTime, timeType: "work" },
-          on: { changeTime: _vm.updateTime }
-        })
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "setting" },
-      [
-        _c("span", { staticClass: "setting__title" }, [_vm._v("Rest")]),
-        _vm._v(" "),
-        _c("timer-field", {
-          attrs: { timeSeconds: _vm.restTime, timeType: "rest" },
-          on: { changeTime: _vm.updateTime }
-        })
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "setting" },
-      [
-        _c("span", { staticClass: "setting__title" }, [_vm._v("Cycles")]),
-        _vm._v(" "),
-        _c(
-          "vue-slider",
-          _vm._b(
-            {
-              ref: "slider",
-              staticClass: "setting__slider",
-              model: {
-                value: _vm.value1,
-                callback: function($$v) {
-                  _vm.value1 = $$v
-                },
-                expression: "value1"
-              }
-            },
+  return _c("div", { staticClass: "control-wrapper" }, [
+    _c("div", { staticClass: "settings" }, [
+      _c(
+        "div",
+        { staticClass: "setting" },
+        [
+          _c("span", { staticClass: "setting__title" }, [_vm._v("Prepare")]),
+          _vm._v(" "),
+          _c("timer-field", {
+            attrs: { timeSeconds: _vm.prepareTime, timeType: "prepare" },
+            on: { changeTime: _vm.updateTime }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "setting" },
+        [
+          _c("span", { staticClass: "setting__title" }, [_vm._v("Work")]),
+          _vm._v(" "),
+          _c("timer-field", {
+            attrs: { timeSeconds: _vm.workTime, timeType: "work" },
+            on: { changeTime: _vm.updateTime }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "setting" },
+        [
+          _c("span", { staticClass: "setting__title" }, [_vm._v("Rest")]),
+          _vm._v(" "),
+          _c("timer-field", {
+            attrs: { timeSeconds: _vm.restTime, timeType: "rest" },
+            on: { changeTime: _vm.updateTime }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "setting" },
+        [
+          _c("span", { staticClass: "setting__title" }, [_vm._v("Cycles")]),
+          _vm._v(" "),
+          _c(
             "vue-slider",
-            _vm.options1,
-            false
+            _vm._b(
+              {
+                ref: "slider",
+                staticClass: "setting__slider",
+                model: {
+                  value: _vm.value1,
+                  callback: function($$v) {
+                    _vm.value1 = $$v
+                  },
+                  expression: "value1"
+                }
+              },
+              "vue-slider",
+              _vm.options1,
+              false
+            )
           )
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "setting" },
-      [
-        _c("span", { staticClass: "setting__title" }, [_vm._v("Tabatas")]),
-        _vm._v(" "),
-        _c(
-          "vue-slider",
-          _vm._b(
-            {
-              ref: "slider",
-              staticClass: "setting__slider",
-              model: {
-                value: _vm.value2,
-                callback: function($$v) {
-                  _vm.value2 = $$v
-                },
-                expression: "value2"
-              }
-            },
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "setting" },
+        [
+          _c("span", { staticClass: "setting__title" }, [_vm._v("Tabatas")]),
+          _vm._v(" "),
+          _c(
             "vue-slider",
-            _vm.options2,
-            false
+            _vm._b(
+              {
+                ref: "slider",
+                staticClass: "setting__slider",
+                model: {
+                  value: _vm.value2,
+                  callback: function($$v) {
+                    _vm.value2 = $$v
+                  },
+                  expression: "value2"
+                }
+              },
+              "vue-slider",
+              _vm.options2,
+              false
+            )
           )
-        )
-      ],
-      1
-    ),
+        ],
+        1
+      )
+    ]),
     _vm._v(" "),
-    _c("div", { staticClass: "settings__buttons" }, [
+    _c("div", { staticClass: "action-buttons" }, [
       _vm.pauseButtonStatus
         ? _c("button", {
-            staticClass: "btn btn--wide",
+            staticClass: "btn btn--elipse",
             domProps: {
               textContent: _vm._s(!_vm.resumeStatus ? "Pause" : "Resume")
             },
@@ -38282,7 +38354,7 @@ var render = function() {
       _c(
         "button",
         {
-          staticClass: "btn btn--wide",
+          staticClass: "btn btn--elipse",
           domProps: { textContent: _vm._s(!_vm.working ? "Start" : "Stop") },
           on: { click: _vm.toggleWorkout }
         },
@@ -38314,6 +38386,20 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "timer-field" }, [
+    _c(
+      "button",
+      {
+        staticClass: "timer-field__btn timer-field__btn--minus",
+        on: {
+          click: _vm.subtract,
+          mousedown: _vm.subtractStart,
+          mouseup: _vm.stopCounter,
+          mouseleave: _vm.stopCounter
+        }
+      },
+      [_vm._v("-")]
+    ),
+    _vm._v(" "),
     _c("input", {
       directives: [
         {
@@ -38335,20 +38421,6 @@ var render = function() {
         }
       }
     }),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass: "timer-field__btn timer-field__btn--minus",
-        on: {
-          click: _vm.subtract,
-          mousedown: _vm.subtractStart,
-          mouseup: _vm.stopCounter,
-          mouseleave: _vm.stopCounter
-        }
-      },
-      [_vm._v("-")]
-    ),
     _vm._v(" "),
     _c(
       "button",
