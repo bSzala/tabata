@@ -86,7 +86,10 @@
         },
         methods: {
             init(){
+                this.currentTabata = 0;
+                this.doneStep=0;
                 this.updateTimer();
+                this.updateTimerTitle('');
                 this.countSteps();
                 this.displayCycle(this.cycles);
                 this.displayTabata(this.tabatas);
