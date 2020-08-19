@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: stretch;
     flex-wrap: wrap;
+    padding: 0 0 4rem;
     position: relative;
 }
 
@@ -39,3 +40,95 @@
     justify-content: space-around;
 }
 
+
+.global-init .tabata{
+    background: white!important;
+}
+
+
+.global-prepare{
+
+    & .header{
+        background-color: $color-black!important;
+
+        &__content{
+            color: $color-white!important;
+        }
+    }
+
+    color: $color-black-lighter!important;
+    & .tabata {
+        background: $color-yellow!important;
+
+    }
+
+    & .btn-control{
+        color: $color-black-lighter !important;
+        border: none;
+        background: $color-yellow!important;
+        border-bottom: 3px solid transparent;
+
+        &:hover{
+            border-bottom-color: $color-yellow-darken!important;
+        }
+    }
+
+
+}
+
+
+.global-work{
+    color: $color-white!important;
+
+    & .tabata{
+        background: $color-green!important;
+    }
+
+    & .btn-control{
+        color: $color-white!important;
+        border: none;
+        background: $color-green!important;
+        border-bottom: 3px solid transparent;
+
+        &:hover{
+            border-bottom-color: $color-green-darken!important;
+        }
+    }
+
+}
+
+
+.global-rest {
+
+    & .header{
+        background-color: $color-white!important;
+
+        &__content{
+            color: $color-black-lighter!important;
+        }
+    }
+
+
+    color: $color-red-darken!important;
+
+    & .tabata{
+        background: rgba($color-red, .8)!important;
+
+    }
+
+    & .btn-control{
+        color: $color-red-darken;
+        border: none;
+        background: transparent!important;
+        border-bottom: 3px solid transparent;
+
+        &:hover{
+            border-bottom-color: $color-red-darken!important;
+        }
+    }
+}
+
+
+.global-prepare .settings, .global-rest .settings, .global-work .settings{
+    color: $color-black-lighter!important;
+}

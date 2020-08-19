@@ -1,7 +1,7 @@
 // Colors
-$color-primary:#2d3142;
-$color-primary-light:#4f5d75;
-$color-primary-dark:#1b1d28;
+$color-primary:#264653;
+$color-primary-light:lighten($color-primary, 20);
+$color-primary-dark:darken($color-primary,20);
 
 $color-grey:#bfc0c0;
 $color-grey-light:#dadddd;
@@ -13,6 +13,19 @@ $color-orange-dark:#f37a46;
 
 $color-white:#fff;
 $color-black:#000;
+$color-black-lighter: rgba($color-black, .4);
+
+$color-yellow: #e9c46a;
+$color-yellow-darken: darken($color-yellow, 20);
+$color-yellow-lighter: lighten($color-yellow, 20);
+
+$color-red: #e63946;
+$color-red-darken: darken($color-red,20);
+$color-red-lighter: lighten($color-red,20);
+
+$color-green: #2a9d8f;
+$color-green-darken: darken($color-green, 20);
+$color-green-lighter: lighten($color-green, 20);
 
 
 //Font

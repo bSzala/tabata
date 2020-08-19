@@ -1,7 +1,7 @@
 <template>
     <header class="header">
         <div class="header__content">
-            <p>T2.0</p>
+            <p>Tabata 2.0</p>
         </div>
     </header>
 </template>

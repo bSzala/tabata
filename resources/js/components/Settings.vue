@@ -52,7 +52,7 @@ export default {
             value2: this.tabatas,
             working: false,
             pauseButtonStatus: false,
-            resumeStatus: false,
+            resumeStatus: true,
             options1: {
                 dotSize: 34,
                 duration: 0.7,

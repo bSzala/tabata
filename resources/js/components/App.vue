@@ -11,11 +11,11 @@
                 <div class="tabata__additional">
                     <div class="tabata__cycles">
                         <h3 class="tabata__heading">Cycles</h3>
-                        <span class="tabata__number" v-text="currentCycle"></span>
+                        <span class="tabata__number" >{{currentCycle}}/{{cycles}}</span>
                     </div>
                     <div class="tabata__tabatas">
                         <h3 class="tabata__heading">Tabatas</h3>
-                        <span class="tabata__number" v-text="currentTabata"></span>
+                        <span class="tabata__number" >{{currentTabata}}/{{tabatas}}</span>
                     </div>
                 </div>
                 <div class="tabata__timer">
@@ -25,8 +25,8 @@
 
 
                 <div class="tabata__controls">
-                    <button class="btn-control btn-control--elipse" v-if="pauseActive" @click="pauseWorkout"  v-text="!resumeCurrent? 'Pause':'Resume'"></button>
-                    <button class="btn-control btn-control--elipse btn-control--blue" @click="toggleWorkout" v-text="!isWorking? 'Start': 'Stop'">Start</button>
+                    <button class="btn btn-control" v-if="pauseActive" @click="pauseBtn"  v-text="!resumeCurrent? 'Pause':'Resume'" ref="pauseBtn"></button>
+                    <button class="btn btn-control btn-control--blue" @click="toggleWorkout" v-show="!isWorking">Start</button>
                 </div>
 
             </div>
@@ -47,7 +47,7 @@
             </div>
         </main>
         <nav class="nav">
-            <button class="nav__item" @click="toggleSidebar"><i class="fas fa-bars"></i></button>
+            <button class="nav__item" @click="toggleSidebar"><i class="fas fa-bars"></i> Config</button>
         </nav>
 
     </div>
@@ -95,16 +95,25 @@
         },
         mounted() {
             this.init();
+            this.loadBackspaceEvent();
         },
         methods: {
+            loadBackspaceEvent(){
+                document.querySelector('body').addEventListener('keydown',e => {
+                    if(e.key === 'Backspace'){
+                        const btn = this.$refs.pauseBtn;
+                        btn.click();
+                    }
+                });
+            },
             init(){
                 this.currentTabata = 0;
                 this.doneStep=0;
                 this.updateTimer();
                 this.updateTimerTitle('');
                 this.countSteps();
-                this.displayCycle(this.cycles);
-                this.displayTabata(this.tabatas);
+                this.displayCycle(1);
+                this.displayTabata(1);
                 BodyTypeManager.setGlobalType(BodyTypeManager.Types.INIT);
                 this.audio = new Beep('beep-sound');
             },
@@ -118,6 +127,7 @@
                 }else{
                     this.pauseActive = false;
                 }
+                this.$refs.settings.pauseWorkout();
                 this.$refs.settings.toggleWorkout();
             },
             countSteps(){
@@ -177,7 +187,9 @@
                 }
                 BodyTypeManager.pauseTabata();
             },
-
+            pauseBtn(){
+                this.$refs.settings.pauseWorkout();
+            },
             runPrepare(){
                 this.timer = this.prepareTimeSecond;
                 this.styleTimer();

@@ -2007,16 +2007,27 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.init();
+    this.loadBackspaceEvent();
   },
   methods: {
+    loadBackspaceEvent: function loadBackspaceEvent() {
+      var _this = this;
+
+      document.querySelector('body').addEventListener('keydown', function (e) {
+        if (e.key === 'Backspace') {
+          var btn = _this.$refs.pauseBtn;
+          btn.click();
+        }
+      });
+    },
     init: function init() {
       this.currentTabata = 0;
       this.doneStep = 0;
       this.updateTimer();
       this.updateTimerTitle('');
       this.countSteps();
-      this.displayCycle(this.cycles);
-      this.displayTabata(this.tabatas);
+      this.displayCycle(1);
+      this.displayTabata(1);
       _utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].setGlobalType(_utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].Types.INIT);
       this.audio = new _utilities_audio_manager__WEBPACK_IMPORTED_MODULE_3__["default"]('beep-sound');
     },
@@ -2032,6 +2043,7 @@ __webpack_require__.r(__webpack_exports__);
         this.pauseActive = false;
       }
 
+      this.$refs.settings.pauseWorkout();
       this.$refs.settings.toggleWorkout();
     },
     countSteps: function countSteps() {
@@ -2095,6 +2107,9 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       _utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].pauseTabata();
+    },
+    pauseBtn: function pauseBtn() {
+      this.$refs.settings.pauseWorkout();
     },
     runPrepare: function runPrepare() {
       this.timer = this.prepareTimeSecond;
@@ -2164,29 +2179,29 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     runInterval: function runInterval() {
-      var _this = this;
+      var _this2 = this;
 
       if (this.workoutInterval) {
         return;
       }
 
       this.workoutInterval = setInterval(function () {
-        if (_this.timer > 1) {
-          _this.timer--;
+        if (_this2.timer > 1) {
+          _this2.timer--;
 
-          if (_this.timer <= 5) {
-            _this.audio.play();
+          if (_this2.timer <= 5) {
+            _this2.audio.play();
           }
 
-          _this.styleTimer();
+          _this2.styleTimer();
         } else {
-          _this.audio.stop();
+          _this2.audio.stop();
 
-          _this.clearInterval();
+          _this2.clearInterval();
 
-          _this.doneStep++;
+          _this2.doneStep++;
 
-          _this.workoutAction(true);
+          _this2.workoutAction(true);
         }
       }, 1000);
     },
@@ -2296,7 +2311,7 @@ __webpack_require__.r(__webpack_exports__);
       value2: this.tabatas,
       working: false,
       pauseButtonStatus: false,
-      resumeStatus: false,
+      resumeStatus: true,
       options1: {
         dotSize: 34,
         duration: 0.7,
@@ -38067,19 +38082,17 @@ var render = function() {
             _c("div", { staticClass: "tabata__cycles" }, [
               _c("h3", { staticClass: "tabata__heading" }, [_vm._v("Cycles")]),
               _vm._v(" "),
-              _c("span", {
-                staticClass: "tabata__number",
-                domProps: { textContent: _vm._s(_vm.currentCycle) }
-              })
+              _c("span", { staticClass: "tabata__number" }, [
+                _vm._v(_vm._s(_vm.currentCycle) + "/" + _vm._s(_vm.cycles))
+              ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "tabata__tabatas" }, [
               _c("h3", { staticClass: "tabata__heading" }, [_vm._v("Tabatas")]),
               _vm._v(" "),
-              _c("span", {
-                staticClass: "tabata__number",
-                domProps: { textContent: _vm._s(_vm.currentTabata) }
-              })
+              _c("span", { staticClass: "tabata__number" }, [
+                _vm._v(_vm._s(_vm.currentTabata) + "/" + _vm._s(_vm.tabatas))
+              ])
             ])
           ]),
           _vm._v(" "),
@@ -38095,22 +38108,27 @@ var render = function() {
           _c("div", { staticClass: "tabata__controls" }, [
             _vm.pauseActive
               ? _c("button", {
-                  staticClass: "btn-control btn-control--elipse",
+                  ref: "pauseBtn",
+                  staticClass: "btn btn-control",
                   domProps: {
                     textContent: _vm._s(!_vm.resumeCurrent ? "Pause" : "Resume")
                   },
-                  on: { click: _vm.pauseWorkout }
+                  on: { click: _vm.pauseBtn }
                 })
               : _vm._e(),
             _vm._v(" "),
             _c(
               "button",
               {
-                staticClass:
-                  "btn-control btn-control--elipse btn-control--blue",
-                domProps: {
-                  textContent: _vm._s(!_vm.isWorking ? "Start" : "Stop")
-                },
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: !_vm.isWorking,
+                    expression: "!isWorking"
+                  }
+                ],
+                staticClass: "btn btn-control btn-control--blue",
                 on: { click: _vm.toggleWorkout }
               },
               [_vm._v("Start")]
@@ -38158,7 +38176,7 @@ var render = function() {
         _c(
           "button",
           { staticClass: "nav__item", on: { click: _vm.toggleSidebar } },
-          [_c("i", { staticClass: "fas fa-bars" })]
+          [_c("i", { staticClass: "fas fa-bars" }), _vm._v(" Config")]
         )
       ])
     ],
@@ -38212,7 +38230,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("header", { staticClass: "header" }, [
-      _c("div", { staticClass: "header__content" }, [_c("p", [_vm._v("T2.0")])])
+      _c("div", { staticClass: "header__content" }, [
+        _c("p", [_vm._v("Tabata 2.0")])
+      ])
     ])
   }
 ]
