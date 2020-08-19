@@ -5,7 +5,7 @@ class Beep{
     }
 
     stop(){
-        this.audio.stop();
+        this.audio.pause();
     }
 
     play(){
@@ -13,9 +13,6 @@ class Beep{
         console.log('playing');
     }
 
-    pause(){
-        this.audio.pause();
-    }
 }
 
 export default Beep;

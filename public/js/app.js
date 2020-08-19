@@ -1955,6 +1955,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2139,8 +2143,14 @@ __webpack_require__.r(__webpack_exports__);
         if (_this.timer > 1) {
           _this.timer--;
 
+          if (_this.timer <= 5) {
+            _this.audio.play();
+          }
+
           _this.styleTimer();
         } else {
+          _this.audio.stop();
+
           _this.clearInterval();
 
           _this.doneStep++;
@@ -38084,7 +38094,19 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("nav", { staticClass: "nav" }, [
-      _c("audio", { attrs: { src: "images/beep.mp3", id: "beep-sound" } })
+      _c("audio", { attrs: { id: "beep-sound" } }, [
+        _c("source", {
+          attrs: { src: "sounds/beep-08b.mp3", type: "audio/mpeg" }
+        }),
+        _vm._v(" "),
+        _c("source", {
+          attrs: { src: "sounds/beep-08b.wav", type: "audio/wav" }
+        }),
+        _vm._v(" "),
+        _c("source", {
+          attrs: { src: "sounds/beep-08b.ogg", type: "audio/ogg" }
+        })
+      ])
     ])
   }
 ]
@@ -50931,18 +50953,13 @@ var Beep = /*#__PURE__*/function () {
   _createClass(Beep, [{
     key: "stop",
     value: function stop() {
-      this.audio.stop();
+      this.audio.pause();
     }
   }, {
     key: "play",
     value: function play() {
       this.audio.play();
       console.log('playing');
-    }
-  }, {
-    key: "pause",
-    value: function pause() {
-      this.audio.pause();
     }
   }]);
 

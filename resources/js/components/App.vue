@@ -3,7 +3,11 @@
         <header-element></header-element>
         <main class="content-section">
             <nav class="nav">
-                <audio src="images/beep.mp3" id="beep-sound"></audio>
+                <audio id="beep-sound">
+                    <source src="sounds/beep-08b.mp3" type="audio/mpeg">
+                    <source src="sounds/beep-08b.wav" type="audio/wav">
+                    <source src="sounds/beep-08b.ogg" type="audio/ogg">
+                </audio>
             </nav>
             <div class="tabata">
                 <div class="tabata__timer">
@@ -221,8 +225,12 @@
 
                     if(this.timer >1){
                         this.timer--;
+                        if(this.timer <= 5){
+                            this.audio.play();
+                        }
                         this.styleTimer();
                     }else{
+                        this.audio.stop();
                         this.clearInterval();
                         this.doneStep++;
                         this.workoutAction(true);
