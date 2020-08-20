@@ -32,7 +32,7 @@ $color-green-lighter: lighten($color-green, 20);
 $default-font-size: 1.6rem;
 
 // GRID
-$grid-width: 100vw;
+$grid-width: 100%;
 
 /* Set the theme color of the component */
-$themeColor: $color-primary;
+$themeColor: $color-green;

@@ -26,26 +26,27 @@
 
                 <div class="tabata__controls">
                     <button class="btn btn-control" v-if="pauseActive" @click="pauseBtn"  v-text="!resumeCurrent? 'Pause':'Resume'" ref="pauseBtn"></button>
-                    <button class="btn btn-control btn-control--blue" @click="toggleWorkout" v-show="!isWorking">Start</button>
+                    <button class="btn btn-control btn-control--green" @click="toggleWorkout" v-show="!isWorking">Start</button>
                 </div>
 
             </div>
-            <div class="sidebar" v-show="showSidebar">
-                <settings
-                    ref="settings"
-                    v-bind:cycles="cycles"
-                    v-bind:tabatas="tabatas"
-                    v-bind:prepareTime="prepareTimeSecond"
-                    v-bind:workTime="workTimeSecond"
-                    v-bind:restTime="restTimeSecond"
-                    @changedCycle="updateCycle"
-                    @changeTabatas="updateTabatas"
-                    @changeTime="updateTime"
-                    @workout="startWorkout"
-                    @pause="pauseWorkout"
-                ></settings>
-            </div>
+
         </main>
+        <div class="sidebar" v-show="showSidebar">
+            <settings
+                ref="settings"
+                v-bind:cycles="cycles"
+                v-bind:tabatas="tabatas"
+                v-bind:prepareTime="prepareTimeSecond"
+                v-bind:workTime="workTimeSecond"
+                v-bind:restTime="restTimeSecond"
+                @changedCycle="updateCycle"
+                @changeTabatas="updateTabatas"
+                @changeTime="updateTime"
+                @workout="startWorkout"
+                @pause="pauseWorkout"
+            ></settings>
+        </div>
         <nav class="nav">
             <button class="nav__item" @click="toggleSidebar"><i class="fas fa-bars"></i> Config</button>
         </nav>

@@ -24,8 +24,8 @@
             </div>
         </div>
         <div class="action-buttons">
-            <button class="btn btn--elipse" v-if="pauseButtonStatus" @click="pauseWorkout"  v-text="!resumeStatus? 'Pause':'Resume'"></button>
-            <button class="btn btn--elipse" @click="toggleWorkout" v-text="!working? 'Start': 'Stop'">Start</button>
+            <button class="btn btn-control btn-control--green" v-if="pauseButtonStatus" @click="pauseWorkout"  v-text="!resumeStatus? 'Pause':'Resume'"></button>
+            <button class="btn btn-control btn-control--green" @click="toggleWorkout" v-text="!working? 'Start': 'Stop'">Start</button>
         </div>
     </div>
 </template>

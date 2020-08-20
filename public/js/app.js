@@ -1967,6 +1967,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -38128,49 +38129,49 @@ var render = function() {
                     expression: "!isWorking"
                   }
                 ],
-                staticClass: "btn btn-control btn-control--blue",
+                staticClass: "btn btn-control btn-control--green",
                 on: { click: _vm.toggleWorkout }
               },
               [_vm._v("Start")]
             )
           ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.showSidebar,
-                expression: "showSidebar"
-              }
-            ],
-            staticClass: "sidebar"
-          },
-          [
-            _c("settings", {
-              ref: "settings",
-              attrs: {
-                cycles: _vm.cycles,
-                tabatas: _vm.tabatas,
-                prepareTime: _vm.prepareTimeSecond,
-                workTime: _vm.workTimeSecond,
-                restTime: _vm.restTimeSecond
-              },
-              on: {
-                changedCycle: _vm.updateCycle,
-                changeTabatas: _vm.updateTabatas,
-                changeTime: _vm.updateTime,
-                workout: _vm.startWorkout,
-                pause: _vm.pauseWorkout
-              }
-            })
-          ],
-          1
-        )
+        ])
       ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showSidebar,
+              expression: "showSidebar"
+            }
+          ],
+          staticClass: "sidebar"
+        },
+        [
+          _c("settings", {
+            ref: "settings",
+            attrs: {
+              cycles: _vm.cycles,
+              tabatas: _vm.tabatas,
+              prepareTime: _vm.prepareTimeSecond,
+              workTime: _vm.workTimeSecond,
+              restTime: _vm.restTimeSecond
+            },
+            on: {
+              changedCycle: _vm.updateCycle,
+              changeTabatas: _vm.updateTabatas,
+              changeTime: _vm.updateTime,
+              workout: _vm.startWorkout,
+              pause: _vm.pauseWorkout
+            }
+          })
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("nav", { staticClass: "nav" }, [
         _c(
@@ -38363,7 +38364,7 @@ var render = function() {
     _c("div", { staticClass: "action-buttons" }, [
       _vm.pauseButtonStatus
         ? _c("button", {
-            staticClass: "btn btn--elipse",
+            staticClass: "btn btn-control btn-control--green",
             domProps: {
               textContent: _vm._s(!_vm.resumeStatus ? "Pause" : "Resume")
             },
@@ -38374,7 +38375,7 @@ var render = function() {
       _c(
         "button",
         {
-          staticClass: "btn btn--elipse",
+          staticClass: "btn btn-control btn-control--green",
           domProps: { textContent: _vm._s(!_vm.working ? "Start" : "Stop") },
           on: { click: _vm.toggleWorkout }
         },

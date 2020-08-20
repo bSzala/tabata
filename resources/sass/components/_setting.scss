@@ -16,5 +16,10 @@
         display: block;
         margin: auto;
         width: 80%!important;
+
+        @include respond(phone){
+            padding: .5rem;
+            width: 100%;
+        }
     }
 }

@@ -1,3 +1,4 @@
+
 .content-section{
     flex: 1;
     display: flex;
@@ -6,6 +7,11 @@
     flex-wrap: wrap;
     padding: 0 0 4rem;
     position: relative;
+
+    @include respond(phone){
+        padding: 0 0 10rem;
+    }
+
 }
 
 .sidebar{
@@ -47,6 +53,7 @@
 
 
 .global-prepare{
+    background: $color-yellow!important;
 
     & .header{
         background-color: $color-black!important;
@@ -79,6 +86,7 @@
 
 .global-work{
     color: $color-white!important;
+    background: $color-green!important;
 
     & .tabata{
         background: $color-green!important;
@@ -99,6 +107,7 @@
 
 
 .global-rest {
+    background: rgba($color-red, .8)!important;
 
     & .header{
         background-color: $color-white!important;
@@ -112,7 +121,7 @@
     color: $color-red-darken!important;
 
     & .tabata{
-        background: rgba($color-red, .8)!important;
+        background: transparent;
 
     }
 

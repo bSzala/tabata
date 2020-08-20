@@ -8,6 +8,7 @@
     font-size: 6rem;
     padding: 0;
 
+
     &__heading{
         text-align: center;
         font-size: 2.5rem;
@@ -25,6 +26,9 @@
     &__timer{
         flex: 0 0 100%;
         font-size: 24rem;
+        @include respond(phone){
+            font-size: 10rem;
+        }
         display: flex;
         font-weight: 700;
         font-family: Oswald, sans-serif;

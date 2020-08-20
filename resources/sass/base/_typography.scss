@@ -1,7 +1,7 @@
 body{
     font-family: 'Oswald', sans-serif;
     font-weight: 300;
-    color: $color-primary-light;
+    color: lighten($color-black,15);
     line-height: 1.5;
 
 }

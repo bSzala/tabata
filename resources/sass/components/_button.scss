@@ -1,5 +1,5 @@
 .btn{
-    padding: 2rem;
+    padding: 2rem 4rem;
     display: inline-block;
 
     &,
@@ -58,6 +58,22 @@
 
             &:hover{
                 background-image: linear-gradient(to right bottom, $color-primary-light 20%, rgba($color-primary-dark,.2));
+            }
+        }
+
+        &--green{
+            &,
+            &:link,
+            &:visited{
+                background-color: $color-green;
+                border:1px solid $color-green-darken;
+                cursor: pointer;
+                outline: none;
+                color: $color-white;
+            }
+
+            &:hover{
+                background-image: linear-gradient(to right bottom, $color-green-lighter 20%, rgba($color-green-darken,.2));
             }
         }
     }

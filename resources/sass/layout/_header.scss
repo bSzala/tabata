@@ -1,5 +1,10 @@
 .header{
     flex: 0 0 1rem;
+
+    @include respond(phone){
+        flex: 0 0 10rem;
+    }
+
     display: flex;
     padding: .5rem;
     background-color: $color-primary;
@@ -9,6 +14,9 @@
     &__content{
         display: flex;
         font-size: 1rem;
+        @include respond(phone){
+            font-size: 3rem;
+        }
         color: $color-primary-light;
         font-weight: 300;
         text-transform: uppercase;

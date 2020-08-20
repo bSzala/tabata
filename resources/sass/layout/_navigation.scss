@@ -9,15 +9,23 @@
     padding: .5rem;
     height: 4rem;
     border-top: 1px solid $color-grey-light;
-    background-image: linear-gradient(to right, rgba($color-grey-light,.2), rgba($color-grey-light,.5));
+    background-image: linear-gradient(to right, $color-grey-light, lighten($color-grey-light,20));
+
+    @include respond(phone){
+        height: 10rem;
+    }
 
     &__item{
         padding: .75rem;
         cursor: pointer;
         border:none;
-        color: rgba($color-black, .6);
+        color: rgba($color-black, .8);
         background:transparent;
 
+        @include respond(phone){
+            font-size: 3rem;
+            color: rgba($color-black, .6);
+        }
 
         &:hover{
             color: $color-black;
