@@ -5101,6 +5101,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  margin-bottom: 6rem;
   justify-content: space-around;
 }
 
