@@ -5,11 +5,15 @@
     justify-content: center;
     align-items: stretch;
     flex-wrap: wrap;
-    padding: 0 0 4rem;
+    margin: 0 0 4rem;
     position: relative;
 
+    @include respond(phone-land){
+        margin: 0 0 5rem;
+    }
+
     @include respond(phone){
-        padding: 0 0 8rem;
+        margin: 0 0 5rem;
     }
 
 }

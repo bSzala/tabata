@@ -1,9 +1,15 @@
 .header{
     flex: 0 0 1rem;
 
-    @include respond(phone){
-        flex: 0 0 8rem;
+    @include respond(phone-land){
+        display: none;
     }
+
+    @include respond(phone){
+        //flex: 0 0 8rem;
+        display: none;
+    }
+
 
     display: flex;
     padding: .5rem;
@@ -14,6 +20,10 @@
     &__content{
         display: flex;
         font-size: 1rem;
+        @include respond(phone-land){
+            font-size: 2rem;
+        }
+
         @include respond(phone){
             font-size: 2rem;
         }

@@ -14,9 +14,17 @@
         color: lighten($color-black,20);
         cursor: inherit;
 
+
+        @include respond(phone-land){
+            font-size: 2rem;
+        }
+
+
         @include respond(phone){
             font-size: 2rem;
         }
+
+
 
         &:focus{
             outline: none;

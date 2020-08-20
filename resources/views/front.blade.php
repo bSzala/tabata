@@ -14,7 +14,7 @@
     </head>
     <body>
         <div id="app">
-            <app :tabata-cycle="6" :tabata-counter="2" :prepare="5" :work="15" :rest="10"></app>
+            <app :tabata-cycle="8" :tabata-counter="5" :prepare="2" :work="20" :rest="10"></app>
         </div>
             <!-- Scripts -->
             <script src="{{ asset('js/app.js') }}" defer></script>

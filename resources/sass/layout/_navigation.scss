@@ -11,8 +11,13 @@
     //border-top: 1px solid $color-grey-light;
     background-image: linear-gradient(to bottom, lighten($color-grey-light,5), lighten($color-grey-light,40));
 
+    @include respond(phone-land){
+        height: 5rem;
+    }
+
+
     @include respond(phone){
-        height: 8rem;
+        height: 5rem;
     }
 
     &__item{
@@ -21,6 +26,11 @@
         border:none;
         color: rgba($color-black, .8);
         background:transparent;
+
+        @include respond(phone-land){
+            font-size: 2rem;
+            color: rgba($color-black, .6);
+        }
 
         @include respond(phone){
             font-size: 2rem;

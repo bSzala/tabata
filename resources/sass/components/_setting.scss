@@ -17,6 +17,11 @@
         margin: auto;
         width: 80%!important;
 
+        @include respond(phone-land){
+            padding: .5rem;
+            width: 100%;
+        }
+
         @include respond(phone){
             padding: .5rem;
             width: 100%;

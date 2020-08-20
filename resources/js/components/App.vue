@@ -22,8 +22,6 @@
                     <h3 class="tabata__title" v-text="timerTitle"></h3>
                     <span>{{prettyTimer}}</span>
                 </div>
-
-
                 <div class="tabata__controls">
                     <button class="btn btn-control" v-if="pauseActive" @click="pauseBtn"  v-text="!resumeCurrent? 'Pause':'Resume'" ref="pauseBtn"></button>
                     <button class="btn btn-control btn-control--green" @click="toggleWorkout" v-show="!isWorking">Start</button>
