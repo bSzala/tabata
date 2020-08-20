@@ -111,10 +111,17 @@
             init(){
                 this.currentTabata = 0;
                 this.doneStep=0;
+                this.cycles=this.tabataCycle;
+                this.tabatas=this.tabataCounter;
+                this.prepareTimeSecond=this.prepare;
+                this.workTimeSecond=this.work;
+                this.restTimeSecond=this.rest;
                 this.updateTimerTitle('');
                 this.countSteps();
                 this.displayCycle(1);
                 this.displayTabata(1);
+                this.updateTimer();
+                this.styleTimer();
                 BodyTypeManager.setGlobalType(BodyTypeManager.Types.INIT);
                 this.audio = new Beep('beep-sound');
             },

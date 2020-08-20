@@ -23,7 +23,7 @@
                 <vue-slider  ref="slider" v-model="value2"  v-bind="options2"  class="setting__slider"></vue-slider>
             </div>
             <div class="setting">
-                <span class="setting__title">
+                <span class="setting__title" v-if="!working">
                    <strong>Total time:</strong> {{displayTimer}}
                 </span>
             </div>

@@ -8,11 +8,11 @@
     justify-content: center;
     padding: .5rem;
     height: 4rem;
-    border-top: 1px solid $color-grey-light;
-    background-image: linear-gradient(to right, $color-grey-light, lighten($color-grey-light,20));
+    //border-top: 1px solid $color-grey-light;
+    background-image: linear-gradient(to bottom, lighten($color-grey-light,5), lighten($color-grey-light,40));
 
     @include respond(phone){
-        height: 10rem;
+        height: 8rem;
     }
 
     &__item{
@@ -23,7 +23,7 @@
         background:transparent;
 
         @include respond(phone){
-            font-size: 3rem;
+            font-size: 2rem;
             color: rgba($color-black, .6);
         }
 

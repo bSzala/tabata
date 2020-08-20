@@ -2025,10 +2025,17 @@ __webpack_require__.r(__webpack_exports__);
     init: function init() {
       this.currentTabata = 0;
       this.doneStep = 0;
+      this.cycles = this.tabataCycle;
+      this.tabatas = this.tabataCounter;
+      this.prepareTimeSecond = this.prepare;
+      this.workTimeSecond = this.work;
+      this.restTimeSecond = this.rest;
       this.updateTimerTitle('');
       this.countSteps();
       this.displayCycle(1);
       this.displayTabata(1);
+      this.updateTimer();
+      this.styleTimer();
       _utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].setGlobalType(_utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].Types.INIT);
       this.audio = new _utilities_audio_manager__WEBPACK_IMPORTED_MODULE_3__["default"]('beep-sound');
     },
@@ -38363,10 +38370,12 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "setting" }, [
-        _c("span", { staticClass: "setting__title" }, [
-          _c("strong", [_vm._v("Total time:")]),
-          _vm._v(" " + _vm._s(_vm.displayTimer) + "\n            ")
-        ])
+        !_vm.working
+          ? _c("span", { staticClass: "setting__title" }, [
+              _c("strong", [_vm._v("Total time:")]),
+              _vm._v(" " + _vm._s(_vm.displayTimer) + "\n            ")
+            ])
+          : _vm._e()
       ])
     ]),
     _vm._v(" "),

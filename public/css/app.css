@@ -4591,7 +4591,7 @@ $breakpoint argument choises:
 
 Order: Base + typography > general layout + grid > page layout > components
  */
-/* Set the theme color of the component */
+/* Set the theme color of the slider component */
 @-webkit-keyframes fadeIn {
   0% {
     opacity: 0;
@@ -4786,6 +4786,8 @@ body {
 .btn-control {
   text-transform: uppercase;
   font-size: 2rem;
+  font-weight: 500;
+  font-family: inherit;
   margin: 1rem auto;
   line-height: 1;
   padding: 2.5rem 8rem;
@@ -4986,7 +4988,8 @@ body {
   flex-direction: column;
   justify-content: stretch;
   flex-wrap: wrap;
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
   margin: 0;
   padding: 0;
 }
@@ -5001,12 +5004,11 @@ body {
   justify-content: center;
   padding: 0.5rem;
   height: 4rem;
-  border-top: 1px solid #dadddd;
-  background-image: linear-gradient(to right, #dadddd, white);
+  background-image: linear-gradient(to bottom, #e7e9e9, white);
 }
 @media only screen and (max-width: 37.5em) {
   .nav {
-    height: 10rem;
+    height: 8rem;
   }
 }
 .nav__item {
@@ -5018,7 +5020,7 @@ body {
 }
 @media only screen and (max-width: 37.5em) {
   .nav__item {
-    font-size: 3rem;
+    font-size: 2rem;
     color: rgba(0, 0, 0, 0.6);
   }
 }
@@ -5035,26 +5037,26 @@ body {
   flex: 0 0 1rem;
   display: flex;
   padding: 0.5rem;
-  background-color: #000;
+  background-color: #f5f5f5;
   justify-content: center;
   align-items: center;
 }
 @media only screen and (max-width: 37.5em) {
   .header {
-    flex: 0 0 10rem;
+    flex: 0 0 8rem;
   }
 }
 .header__content {
   display: flex;
   font-size: 1rem;
-  color: #468199;
-  font-weight: 300;
+  color: rgba(0, 0, 0, 0.4);
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1.2rem;
 }
 @media only screen and (max-width: 37.5em) {
   .header__content {
-    font-size: 3rem;
+    font-size: 2rem;
   }
 }
 
@@ -5069,7 +5071,7 @@ body {
 }
 @media only screen and (max-width: 37.5em) {
   .content-section {
-    padding: 0 0 10rem;
+    padding: 0 0 8rem;
   }
 }
 
@@ -5123,13 +5125,12 @@ body {
   background: #e9c46a !important;
 }
 .global-prepare .btn-control {
-  color: rgba(0, 0, 0, 0.4) !important;
+  color: #333333 !important;
   border: none;
   background: #e9c46a !important;
-  border-bottom: 3px solid transparent;
 }
 .global-prepare .btn-control:hover {
-  border-bottom-color: #cf9b1e !important;
+  color: #000;
 }
 
 .global-work {
@@ -5143,10 +5144,9 @@ body {
   color: #fff !important;
   border: none;
   background: #2a9d8f !important;
-  border-bottom: 3px solid transparent;
 }
 .global-work .btn-control:hover {
-  border-bottom-color: #144d46 !important;
+  color: #000;
 }
 
 .global-rest {
@@ -5166,10 +5166,9 @@ body {
   color: #a41520;
   border: none;
   background: transparent !important;
-  border-bottom: 3px solid transparent;
 }
 .global-rest .btn-control:hover {
-  border-bottom-color: #a41520 !important;
+  color: #f1949b;
 }
 
 .global-done {

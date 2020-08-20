@@ -9,7 +9,7 @@
     position: relative;
 
     @include respond(phone){
-        padding: 0 0 10rem;
+        padding: 0 0 8rem;
     }
 
 }
@@ -71,13 +71,12 @@
     }
 
     & .btn-control{
-        color: $color-black-lighter !important;
+        color: $color-black-2 !important;
         border: none;
         background: $color-yellow!important;
-        border-bottom: 3px solid transparent;
 
         &:hover{
-            border-bottom-color: $color-yellow-darken!important;
+            color: $color-black;
         }
     }
 
@@ -97,10 +96,9 @@
         color: $color-white!important;
         border: none;
         background: $color-green!important;
-        border-bottom: 3px solid transparent;
 
         &:hover{
-            border-bottom-color: $color-green-darken!important;
+            color: $color-black;
         }
     }
 
@@ -130,10 +128,9 @@
         color: $color-red-darken;
         border: none;
         background: transparent!important;
-        border-bottom: 3px solid transparent;
 
         &:hover{
-            border-bottom-color: $color-red-darken!important;
+            color: $color-red-lighter;
         }
     }
 }
