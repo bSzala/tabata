@@ -1968,6 +1968,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -2286,6 +2287,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2298,7 +2304,8 @@ __webpack_require__.r(__webpack_exports__);
     tabatas: Number,
     prepareTime: Number,
     workTime: Number,
-    restTime: Number
+    restTime: Number,
+    displayTimer: String
   },
   data: function data() {
     return {
@@ -38153,7 +38160,8 @@ var render = function() {
               tabatas: _vm.tabatas,
               prepareTime: _vm.prepareTimeSecond,
               workTime: _vm.workTimeSecond,
-              restTime: _vm.restTimeSecond
+              restTime: _vm.restTimeSecond,
+              displayTimer: _vm.prettyTimer
             },
             on: {
               changedCycle: _vm.updateCycle,
@@ -38352,7 +38360,14 @@ var render = function() {
           )
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "setting" }, [
+        _c("span", { staticClass: "setting__title" }, [
+          _c("strong", [_vm._v("Total time:")]),
+          _vm._v(" " + _vm._s(_vm.displayTimer) + "\n            ")
+        ])
+      ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "action-buttons" }, [

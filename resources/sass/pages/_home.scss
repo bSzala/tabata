@@ -139,6 +139,11 @@
 }
 
 
+.global-done{
+    background:$color-white url("/images/confetti.gif") repeat-x;
+}
+
+
 .global-prepare .settings, .global-rest .settings, .global-work .settings{
     color: $color-black-lighter!important;
 }

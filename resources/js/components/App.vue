@@ -40,6 +40,7 @@
                 v-bind:prepareTime="prepareTimeSecond"
                 v-bind:workTime="workTimeSecond"
                 v-bind:restTime="restTimeSecond"
+                v-bind:displayTimer="prettyTimer"
                 @changedCycle="updateCycle"
                 @changeTabatas="updateTabatas"
                 @changeTime="updateTime"

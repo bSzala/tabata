@@ -22,6 +22,11 @@
                 <span class="setting__title">Tabatas</span>
                 <vue-slider  ref="slider" v-model="value2"  v-bind="options2"  class="setting__slider"></vue-slider>
             </div>
+            <div class="setting">
+                <span class="setting__title">
+                   <strong>Total time:</strong> {{displayTimer}}
+                </span>
+            </div>
         </div>
         <div class="action-buttons">
             <button class="btn btn-control btn-control--green" v-if="pauseButtonStatus" @click="pauseWorkout"  v-text="!resumeStatus? 'Pause':'Resume'"></button>
@@ -45,6 +50,7 @@ export default {
         prepareTime: Number,
         workTime: Number,
         restTime: Number,
+        displayTimer: String,
     },
     data: function(){
         return {
