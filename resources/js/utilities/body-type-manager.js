@@ -14,7 +14,6 @@ function clearGlobalTypes(){
     });
 }
 
-
 function pauseTabata(){
     bodyElement.classList.toggle('pause');
 }

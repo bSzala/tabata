@@ -2024,7 +2024,6 @@ __webpack_require__.r(__webpack_exports__);
     init: function init() {
       this.currentTabata = 0;
       this.doneStep = 0;
-      this.updateTimer();
       this.updateTimerTitle('');
       this.countSteps();
       this.displayCycle(1);
@@ -2037,14 +2036,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     toggleWorkout: function toggleWorkout() {
       this.isWorking = !this.isWorking;
-
-      if (this.isWorking) {
-        this.pauseActive = true;
-      } else {
-        this.pauseActive = false;
-      }
-
-      this.$refs.settings.pauseWorkout();
       this.$refs.settings.toggleWorkout();
     },
     countSteps: function countSteps() {
@@ -2122,7 +2113,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     finishTabata: function finishTabata() {
       this.doneStep = 0;
-      _utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].setGlobalType(_utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].Types.INIT);
+      _utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].setGlobalType(_utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].Types.DONE);
 
       if (this.currentTabata === this.tabatas) {
         this.prettyTimer = 'Done!';
@@ -2159,6 +2150,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     startWorkout: function startWorkout(status) {
       this.currentTabata = 1;
+      this.showSidebar = false;
+      this.isWorking = status;
+      this.pauseActive = status;
       this.workoutAction(status);
     },
     workoutAction: function workoutAction(active) {
@@ -2312,7 +2306,7 @@ __webpack_require__.r(__webpack_exports__);
       value2: this.tabatas,
       working: false,
       pauseButtonStatus: false,
-      resumeStatus: true,
+      resumeStatus: false,
       options1: {
         dotSize: 34,
         duration: 0.7,

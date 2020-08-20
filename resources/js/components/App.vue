@@ -110,7 +110,6 @@
             init(){
                 this.currentTabata = 0;
                 this.doneStep=0;
-                this.updateTimer();
                 this.updateTimerTitle('');
                 this.countSteps();
                 this.displayCycle(1);
@@ -123,12 +122,6 @@
             },
             toggleWorkout(){
                 this.isWorking = !this.isWorking;
-                if(this.isWorking){
-                    this.pauseActive = true;
-                }else{
-                    this.pauseActive = false;
-                }
-                this.$refs.settings.pauseWorkout();
                 this.$refs.settings.toggleWorkout();
             },
             countSteps(){
@@ -201,7 +194,7 @@
             },
             finishTabata(){
                 this.doneStep=0;
-                BodyTypeManager.setGlobalType(BodyTypeManager.Types.INIT);
+                BodyTypeManager.setGlobalType(BodyTypeManager.Types.DONE);
                 if(this.currentTabata === this.tabatas){
                     this.prettyTimer = 'Done!';
                     this.updateTimerTitle('');
@@ -238,6 +231,9 @@
             },
             startWorkout(status){
                 this.currentTabata=1;
+                this.showSidebar=false;
+                this.isWorking=status;
+                this.pauseActive=status;
                 this.workoutAction(status);
             },
             workoutAction(active){
