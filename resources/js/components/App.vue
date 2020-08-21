@@ -137,14 +137,14 @@
             },
             updateCycle(cycle){
                 this.cycles = cycle;
-                this.displayCycle(this.cycles);
+                this.displayCycle(1);
                 this.updateTimer();
                 this.countSteps();
             },
             updateTabatas(tabatas){
                 this.tabatas = tabatas;
                 this.updateTimer();
-                this.displayTabata(tabatas);
+                this.displayTabata(1);
                 this.countSteps();
             },
             updateTimer(){
@@ -260,7 +260,6 @@
                 }else{
                     //stopped
                     this.clearInterval();
-                    this.init();
                 }
             },
             runInterval(){
@@ -272,7 +271,7 @@
 
                     if(this.timer >1){
                         this.timer--;
-                        if(this.timer <= 5){
+                        if(this.timer <= 3){
                             this.audio.play();
                         }
                         this.styleTimer();

@@ -16,7 +16,7 @@
             </div>
             <div class="setting">
                 <span class="setting__title">Cycles</span>
-                <vue-slider ref="slider" v-model="value1" :disabled="!!actionDisabled" v-bind="options1" class="setting__slider"></vue-slider>
+                <vue-slider ref="slider" v-model="value1" @change="syncCycles" :disabled="!!actionDisabled" v-bind="options1" class="setting__slider"></vue-slider>
             </div>
             <div class="setting">
                 <span class="setting__title">Tabatas</span>
@@ -103,9 +103,6 @@ export default {
         }
     },
     watch:{
-        value1: function(value){
-            this.$emit('changedCycle', value);
-        },
         value2: function(value){
             this.$emit('changeTabatas',value);
         }
@@ -114,6 +111,10 @@ export default {
 
     },
     methods:{
+        syncCycles(value,index){
+            this.cycles = value;
+            this.$emit('changedCycle', value);
+        },
         updateTime(obj){
             this.$emit('changeTime', obj);
         },
