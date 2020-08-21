@@ -110,6 +110,7 @@
 
         @include respond(phone){
             flex: 0 0 30%;
+            align-self: flex-start;
         }
 
     }
