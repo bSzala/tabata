@@ -47,6 +47,10 @@
         }
 
 
+        @include respond(phone-land){
+            padding: 2rem 6rem;
+        }
+
         &--blue{
             &,
             &:link,
