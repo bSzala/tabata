@@ -102,10 +102,15 @@
         },
         methods: {
             loadBackspaceEvent(){
-                document.querySelector('body').addEventListener('keydown',e => {
-                    if(e.key === 'Backspace'){
+                document.addEventListener('keypress',e => {
+                    console.warn('key: '+e.code);
+                    if(e.code === 'Space'){
+                        console.log('inside me');
                         const btn = this.$refs.pauseBtn;
                         btn.click();
+                    }
+                    if(e.code === 'Enter'){
+                        this.toggleWorkout();
                     }
                 });
             },
