@@ -109,7 +109,9 @@
                         btn.click();
                     }
                     if(e.code.toLowerCase() === 'enter'){
+                        BodyTypeManager.releasePause();
                         this.toggleWorkout();
+
                     }
                 });
             },
@@ -193,7 +195,7 @@
                     this.runInterval();
                     this.resumeCurrent=false;
                 }
-                BodyTypeManager.pauseTabata();
+                BodyTypeManager.pauseToggle();
             },
             pauseBtn(){
                 this.$refs.settings.pauseWorkout();

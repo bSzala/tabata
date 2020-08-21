@@ -4608,6 +4608,26 @@ Order: Base + typography > general layout + grid > page layout > components
     opacity: 1;
   }
 }
+@-webkit-keyframes blink {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+@keyframes blink {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
 *,
 *::after,
 *::before {
@@ -4700,6 +4720,7 @@ body {
   flex: 0 0 65%;
   width: 100vw;
   font-size: 24rem;
+  transition: all 0.3s;
   display: flex;
   font-weight: 700;
   font-family: Oswald, sans-serif;
@@ -5295,4 +5316,10 @@ body {
 
 .global-prepare .settings, .global-rest .settings, .global-work .settings {
   color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.pause .tabata__timer span {
+  -webkit-animation: blink 1s linear infinite;
+          animation: blink 1s linear infinite;
+  color: #000;
 }

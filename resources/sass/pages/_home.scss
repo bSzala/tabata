@@ -142,3 +142,9 @@
 .global-prepare .settings, .global-rest .settings, .global-work .settings{
     color: $color-black-lighter!important;
 }
+
+
+.pause .tabata__timer span{
+    animation: blink 1s linear infinite;
+    color: $color-black;
+}

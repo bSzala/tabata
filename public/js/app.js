@@ -2019,13 +2019,14 @@ __webpack_require__.r(__webpack_exports__);
       document.addEventListener('keypress', function (e) {
         console.warn('key: ' + e.code);
 
-        if (e.code === 'Space') {
-          console.log('inside me');
+        if (e.code.toLowerCase() === 'space') {
           var btn = _this.$refs.pauseBtn;
           btn.click();
         }
 
-        if (e.code === 'Enter') {
+        if (e.code.toLowerCase() === 'enter') {
+          _utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].releasePause();
+
           _this.toggleWorkout();
         }
       });
@@ -2115,7 +2116,7 @@ __webpack_require__.r(__webpack_exports__);
         this.resumeCurrent = false;
       }
 
-      _utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].pauseTabata();
+      _utilities_body_type_manager__WEBPACK_IMPORTED_MODULE_2__["default"].pauseToggle();
     },
     pauseBtn: function pauseBtn() {
       this.$refs.settings.pauseWorkout();
@@ -51144,14 +51145,19 @@ function clearGlobalTypes() {
   });
 }
 
-function pauseTabata() {
+function pauseToggle() {
   bodyElement.classList.toggle('pause');
+}
+
+function releasePause() {
+  bodyElement.classList.remove('pause');
 }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   setGlobalType: setGlobalType,
   clearGlobalTypes: clearGlobalTypes,
-  pauseTabata: pauseTabata,
+  pauseToggle: pauseToggle,
+  releasePause: releasePause,
   Types: _types_global_types__WEBPACK_IMPORTED_MODULE_0__["default"]
 });
 

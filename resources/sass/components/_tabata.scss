@@ -39,6 +39,7 @@
         flex: 0 0 65%;
         width: 100vw;
         font-size: 24rem;
+        transition: all .3s;
 
         @include respond(phone-land){
             font-size: 10rem;

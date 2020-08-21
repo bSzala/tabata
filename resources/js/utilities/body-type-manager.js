@@ -14,12 +14,18 @@ function clearGlobalTypes(){
     });
 }
 
-function pauseTabata(){
+function pauseToggle(){
     bodyElement.classList.toggle('pause');
 }
+
+function releasePause(){
+    bodyElement.classList.remove('pause');
+}
+
 export default {
     setGlobalType,
     clearGlobalTypes,
-    pauseTabata,
+    pauseToggle,
+    releasePause,
     Types
 };
