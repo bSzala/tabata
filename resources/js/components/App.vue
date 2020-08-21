@@ -93,6 +93,7 @@
                 resumeCurrent: false,
                 isWorking: false,
                 actionDisabled: false,
+                finished: false,
             }
         },
         mounted() {
@@ -111,6 +112,7 @@
             init(){
                 this.currentTabata = 0;
                 this.doneStep=0;
+                this.finished=false;
                 this.cycles=this.tabataCycle;
                 this.tabatas=this.tabataCounter;
                 this.prepareTimeSecond=this.prepare;
@@ -205,6 +207,7 @@
                 BodyTypeManager.setGlobalType(BodyTypeManager.Types.DONE);
                 if(this.currentTabata === this.tabatas){
                     this.prettyTimer = 'Done!';
+                    this.finished = true;
                     this.updateTimerTitle('');
                     this.$refs.settings.toggleWorkout();
                 }else{
@@ -244,6 +247,11 @@
                 this.pauseActive=status;
                 this.actionDisabled=status;
                 this.workoutAction(status);
+                if(!status){
+                    if(!this.finished){
+                        this.init();
+                    }
+                }
             },
             workoutAction(active){
                 if(active) {

@@ -12,12 +12,21 @@
     background-image: linear-gradient(to bottom, lighten($color-grey-light,5), lighten($color-grey-light,40));
 
     @include respond(phone-land){
-        height: 5rem;
+        width: 8rem;
+        height: 100vh;
+        left: auto;
+        right: 0;
+        top: 0;
     }
 
 
     @include respond(phone){
         height: 5rem;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        top: auto;
+        right: auto;
     }
 
     &__item{

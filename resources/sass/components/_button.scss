@@ -39,7 +39,6 @@
         font-size: 2rem;
         font-weight: 500;
         font-family: inherit;
-        margin: 1rem auto;
         line-height: 1;
         padding: 2.5rem 8rem;
         &:hover{
@@ -48,8 +47,13 @@
 
 
         @include respond(phone-land){
-            padding: 2rem 6rem;
+            padding: 2rem 4rem;
         }
+
+        @include respond(phone){
+            padding: 2rem 4rem;
+        }
+
 
         &--blue{
             &,
