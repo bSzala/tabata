@@ -10,7 +10,6 @@ class Beep{
 
     play(){
         this.audio.play();
-        console.log('playing');
     }
 
 }
