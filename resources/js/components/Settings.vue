@@ -1,26 +1,26 @@
 <template>
     <div class="control-wrapper">
-        <div class="settings">
+        <div class="settings" >
             <div class="setting">
                 <span class="setting__title">Prepare</span>
-                <timer-field v-bind:timeSeconds="prepareTime" timeType="prepare" @changeTime="updateTime"></timer-field>
+                <timer-field v-bind:timeSeconds="prepareTime" :actionDisabled="!!actionDisabled" timeType="prepare" @changeTime="updateTime"></timer-field>
             </div>
             <div class="setting">
                 <span class="setting__title">Work</span>
-                <timer-field  v-bind:timeSeconds="workTime" timeType="work" @changeTime="updateTime"></timer-field>
+                <timer-field  v-bind:timeSeconds="workTime" :actionDisabled="!!actionDisabled" timeType="work" @changeTime="updateTime"></timer-field>
             </div>
             <div class="setting">
                 <span class="setting__title">Rest</span>
-                <timer-field v-bind:timeSeconds="restTime" timeType="rest" @changeTime="updateTime"></timer-field>
+                <timer-field v-bind:timeSeconds="restTime" :actionDisabled="!!actionDisabled" timeType="rest" @changeTime="updateTime"></timer-field>
 
             </div>
             <div class="setting">
                 <span class="setting__title">Cycles</span>
-                <vue-slider ref="slider" v-model="value1"  v-bind="options1" class="setting__slider"></vue-slider>
+                <vue-slider ref="slider" v-model="value1" :disabled="!!actionDisabled" v-bind="options1" class="setting__slider"></vue-slider>
             </div>
             <div class="setting">
                 <span class="setting__title">Tabatas</span>
-                <vue-slider  ref="slider" v-model="value2"  v-bind="options2"  class="setting__slider"></vue-slider>
+                <vue-slider  ref="slider" v-model="value2"  v-bind="options2"  :disabled="!!actionDisabled" class="setting__slider"></vue-slider>
             </div>
             <div class="setting">
                 <span class="setting__title" v-if="!working">
@@ -51,6 +51,7 @@ export default {
         workTime: Number,
         restTime: Number,
         displayTimer: String,
+        actionDisabled: Boolean,
     },
     data: function(){
         return {

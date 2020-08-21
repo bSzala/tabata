@@ -39,6 +39,7 @@
                 v-bind:workTime="workTimeSecond"
                 v-bind:restTime="restTimeSecond"
                 v-bind:displayTimer="prettyTimer"
+                :actionDisabled="actionDisabled"
                 @changedCycle="updateCycle"
                 @changeTabatas="updateTabatas"
                 @changeTime="updateTime"
@@ -79,7 +80,7 @@
                 workTimeSecond: this.work,
                 restTimeSecond: this.rest,
                 timer: 0,
-                prettyTimer:0,
+                prettyTimer:'',
                 workoutInterval:false,
                 currentTabata: 0,
                 doneStep: 0,
@@ -91,6 +92,7 @@
                 pauseActive: false,
                 resumeCurrent: false,
                 isWorking: false,
+                actionDisabled: false,
             }
         },
         mounted() {
@@ -240,6 +242,7 @@
                 this.showSidebar=false;
                 this.isWorking=status;
                 this.pauseActive=status;
+                this.actionDisabled=status;
                 this.workoutAction(status);
             },
             workoutAction(active){

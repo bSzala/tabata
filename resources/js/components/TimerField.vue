@@ -1,9 +1,9 @@
 <template>
     <div class="timer-field">
-        <button class="timer-field__btn timer-field__btn--minus"  @click="subtract" @mousedown="subtractStart" @mouseup="stopCounter" @mouseleave="stopCounter">-</button>
+        <button class="timer-field__btn timer-field__btn--minus" :disabled="!!actionDisabled"  @click="subtract" @mousedown="subtractStart" @mouseup="stopCounter" @mouseleave="stopCounter">-</button>
 
-        <input type="text" v-model="formatedTime"  class="timer-field__input" readonly/>
-            <button class="timer-field__btn timer-field__btn--plus" @click="add"  @mousedown="addStart" @mouseup="stopCounter" @mouseleave="stopCounter">+</button>
+        <input type="text" v-model="formatedTime" :disabled="!!actionDisabled" class="timer-field__input" readonly/>
+            <button class="timer-field__btn timer-field__btn--plus" @click="add" :disabled="!!actionDisabled"  @mousedown="addStart" @mouseup="stopCounter" @mouseleave="stopCounter">+</button>
 
     </div>
 </template>
@@ -12,7 +12,8 @@
     export default {
         props: {
             timeSeconds: Number,
-            timeType: String
+            timeType: String,
+            actionDisabled: Boolean,
         },
         data(){
             return {

@@ -15,6 +15,11 @@
         cursor: inherit;
 
 
+        &:disabled{
+            color: $color-black-lighter;
+        }
+
+
         @include respond(phone-land){
             font-size: 2rem;
         }
@@ -40,6 +45,7 @@
         border-radius: 1rem;
         font-size: 2rem;
         color: $color-grey-dark;
+        transition: all .3s;
 
         &,
         &:link,
@@ -53,7 +59,11 @@
             outline: none;
         }
 
-        &:hover{
+        &:active{
+            transform: scale(2.5);
+        }
+
+        &:hover:not([disabled]){
             color: $color-primary-light;
             font-weight: 700;
         }
