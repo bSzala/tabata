@@ -104,11 +104,11 @@
             loadBackspaceEvent(){
                 document.addEventListener('keypress',e => {
                     console.warn('key: '+e.code);
-                    if(e.code === 'Space'){
+                    if(e.code.toLowerCase() === 'space'){
                         const btn = this.$refs.pauseBtn;
                         btn.click();
                     }
-                    if(e.code === 'Enter'){
+                    if(e.code.toLowerCase() === 'enter'){
                         this.toggleWorkout();
                     }
                 });
