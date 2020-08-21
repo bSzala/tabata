@@ -5,7 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Tabata minimal and modern counter. Perfect for interval training exercises.">
         <title>Tabata Interval Counter</title>
-
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="canonical" href="{{url('/')}}">
@@ -39,6 +38,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
     <body>
+    {!! Analytics::render() !!}
         <div id="app">
             <app :tabata-cycle="8" :tabata-counter="5" :prepare="2" :work="20" :rest="10"></app>
         </div>
