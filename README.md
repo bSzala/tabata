@@ -13,7 +13,7 @@ Tabata is a perfect tool for interval training exercises. The main benefits are:
 ## Keyboard control
 
 A user is able to use "Enter" key to start and stop a tabata counter. In case of any interaption during the training, the user can pause and then resume counter
-by using "Space" key on keyboard.
+by using "Space" key on the keyboard.
 
 ## Credits
 
