@@ -3,7 +3,7 @@
 
 ## About Tabata
 
-Tabata is a perfect tool for interval training exercises. The main benefits are:
+Tabata ([https://tabatatool.pl](https://tabatatool.pl)) is a perfect tool for interval training exercises. The main benefits are:
 
 - `clean & minimal design`
 - `responsive design`
