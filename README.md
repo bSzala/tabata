@@ -9,6 +9,7 @@ Tabata ([https://tabatatool.pl](https://tabatatool.pl)) is a perfect tool for in
 - `responsive design`
 - `configuration settings`
 - `keyboard control`
+- `sound notifications`
 
 ## Keyboard control
 
