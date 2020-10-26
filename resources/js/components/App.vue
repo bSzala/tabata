@@ -256,6 +256,7 @@
                 if(!status){
                     if(!this.finished){
                         this.init();
+                        BodyTypeManager.releasePause();
                     }
                 }
             },
