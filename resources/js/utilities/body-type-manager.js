@@ -22,10 +22,15 @@ function releasePause(){
     bodyElement.classList.remove('pause');
 }
 
+function hasType(type){
+    return bodyElement.classList.contains('global-'+type);
+}
+
 export default {
     setGlobalType,
     clearGlobalTypes,
     pauseToggle,
     releasePause,
+    hasType,
     Types
 };

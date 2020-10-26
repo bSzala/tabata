@@ -7,6 +7,15 @@
                 <source src="sounds/beep-08b.wav" type="audio/wav">
                 <source src="sounds/beep-08b.ogg" type="audio/ogg">
             </audio>
+            <audio id="count-start">
+                <source src="sounds/whistle.mp3" type="audio/mpeg">
+                <source src="sounds/whistle.wav" type="audio/wav">
+            </audio>
+            <audio id="done-sound">
+                <source src="sounds/cheering.mp3" type="audio/mpeg">
+                <source src="sounds/cheering.wav" type="audio/wav">
+            </audio>
+
             <div class="tabata">
                 <div class="tabata__additional">
                     <div class="tabata__cycles">
@@ -277,6 +286,25 @@
                     this.clearInterval();
                 }
             },
+            handleAudio(timeInSeconds){
+                var count_audio = new Beep('count-start');
+
+                if((BodyTypeManager.hasType(BodyTypeManager.Types.WORK) && this.timer >= this.workTimeSecond) ||
+                    (BodyTypeManager.hasType(BodyTypeManager.Types.REST) && this.timer >= this.restTimeSecond)
+                ){
+                    count_audio.play();
+                }
+
+                if(BodyTypeManager.hasType(BodyTypeManager.Types.DONE)){
+                    let done_audio = new Beep('done-sound');
+                    done_audio.play();
+                }
+
+                if(timeInSeconds <= 3 && timeInSeconds > 0){
+                    this.audio.play();
+                }
+
+            },
             runInterval(){
                 if(this.workoutInterval){
                     return;
@@ -284,18 +312,18 @@
 
                 this.workoutInterval = setInterval(()=> {
 
+
+
                     if(this.timer >1){
                         this.timer--;
-                        if(this.timer <= 3){
-                            this.audio.play();
-                        }
                         this.styleTimer();
                     }else{
-                        this.audio.stop();
                         this.clearInterval();
                         this.doneStep++;
                         this.workoutAction(true);
                     }
+                    this.handleAudio(this.timer);
+
                 },1000);
             },
             clearInterval(){
