@@ -4,7 +4,7 @@ namespace Deployer;
 require 'recipe/laravel.php';
 
 set('bin/php', function () {
-    return '/usr/local/bin/php74';
+    return '/usr/local/bin/php72';
 });
 
 set('http_user', 'bszala');
